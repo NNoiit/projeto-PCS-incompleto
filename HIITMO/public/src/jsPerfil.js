@@ -1,17 +1,17 @@
 function preencherCampos(){
-    let key = localStorage.getItem("ultimoLogin");
+    usuarios.get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            console.log(`${doc.id} => ${doc.data()}`);
+        });
+    });
     if( key !=undefined && key != ""){
-    let objeto = JSON.parse(localStorage.getItem(key));
-    let pNome = objeto.nome;
-    let pEmail = objeto.email;
-    let pCpf = objeto.cpf;
-    let pMatricula = objeto.matricula;
+    
 
 
-    document.getElementById("nome").value = pNome;
-    document.getElementById("email").value = pEmail;
-    document.getElementById("cpf").value = pCpf;
-    document.getElementById("matricula").value = pMatricula;
+    document.getElementById("nome").value = $dado.nome;
+    document.getElementById("email").value = $dado.email;
+    document.getElementById("cpf").value = $dado.cpf;
+    document.getElementById("matricula").value = $dado.matricula;
     }
 }
 function fazerLogOff(){

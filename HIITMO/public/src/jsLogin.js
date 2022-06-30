@@ -1,10 +1,27 @@
-import { usuarios } from './service.js';
-
 function verificarLogin() {
 
-    var auth = null;
+    /*if(firebase.auth().currentUser){
+    firebase.auth().signOut()
+    } 
+    const email = document.getElementById("login").value;
+    const senha = document.getElementById("senhalogin").value;
 
-    firebase.auth().signinWithEmailAndPassword(document.getElementById("login"), document.getElementById("senhalogin"), senha).then(function(user){
+    firebase.auth().signinWithEmailAndPassword(email, senha).then(() => {
+        swal.fire({
+          title: "login"
+        }).then( () => {
+            setTimeout( () => {
+                window.location.replace("perfil.html")
+            })
+        })
+    }).catch((error) => {
+        swal.fire({
+            title: "Revise seus dados"
+        })
+    })*/
+
+    var auth = null;
+    firebase.auth().signinWithEmailAndPassword(document.getElementById("login"), document.getElementById("senhalogin")).then(function(user){
         alert("logado")
         auth = user;
 

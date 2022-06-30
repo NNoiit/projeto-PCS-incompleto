@@ -17,6 +17,21 @@ input:focus, label:focus{
     outline: none;
 }
 
+#tipoR{
+    display: inline;
+    margin-top: 3px;
+    width: 12%;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 body{
     padding-top: 5vh;
     background-color: rgba(0, 0, 0, 0.795);

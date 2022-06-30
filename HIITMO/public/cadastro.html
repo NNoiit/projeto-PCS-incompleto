@@ -4,13 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
+    
+    <script  src="https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js"></script>
+    <script  src="https://www.gstatic.com/firebasejs/8.5.0/firebase-auth.js"></script>
+    <script  src="./src/config.js"></script>
 
-    <title>Cadastro Aluno</title>
+    <title>Cadastro</title>
 </head>
 <body>
     <div id = "container">
-        <h1><img src="img/essa.png" alt="logo"></h1>
+        <h1><img src="./img/essa.png" alt="logo"></h1>
         <form action="cadastro.html" method="post" id="registrar-form">
             <div class="box-conteiner">
 
@@ -24,7 +28,7 @@
                 <label for="cpf">CPF:</label>
                 <input type="text" name="cpf" id="cpf" placeholder="Digite seu CPF" required="required">
 
-                <label for="matricula">Matricula:</label>
+                <label for="matricula">Matria:</label>
                 <input type="number" name="matricula" id="matricula" placeholder="Digite sua Matricula" required="required">
 
                 <label for="password">Senha:</label>
@@ -32,17 +36,24 @@
 
                 <label for="passwordConfirma">Confirmação de senha:</label>
                 <input type="password" name="passwordConfirma" id="senhaConfirma" placeholder="Digite sua Confirmação de senha" required="required" onblur="geral()">
+
+                <label for="tipo">Tipo:</label>
+                <p>Instrutor</p>
+                <input id="tipoR" type="radio" name="tipo" required="required" value="anstrutor">
+                <p>Aluno</p> 
+                <input id="tipoR" type="radio" name="tipo" required="required" value="aluno">
+
                 <p id="Psenha"></p>
             </div>
             <input type="submit" id="btn-submit" value="Registrar" onclick="registrarUsuario()">
         </form>
         <p id="atention"></p>
-        <a id= "sair" href="index.html"><button>Voltar</button></a>
+        <a id= "sair" href="./index.html"><button>Voltar</button></a>
     </div>
     <footer>
         
     </footer>
-    <script  src="js/jsBDjson.js" type = "module"></script>
-    <script  src="js/jsCadastro.js" type = "module"></script>
+    <script  src="js/jsBDjson.js" type="module"></script>
+    <script  src="./js/jsCadastro.js" type="module"></script>
 </body>
 </html>
