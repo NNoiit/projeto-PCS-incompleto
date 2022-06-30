@@ -1,2 +1,2 @@
 const db = firebase.firestore();
-export const usuarios = db.collection("usuarios");
+export const usuarios = db.collection('usuarios');

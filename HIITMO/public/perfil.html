@@ -7,30 +7,36 @@
 
     <link rel="stylesheet" href="css/style-area.css">
 
+    <script  src="https://www.gstatic.com/firebasejs/8.5.0/firebase-app.js"></script>
+    <script  src="https://www.gstatic.com/firebasejs/8.5.0/firebase-auth.js"></script>
+    <script  src="./src/jsPerfil.js"></script>
+    <script  src="./src/jsTipousuario.js"></script>
+    <script  src="./src/config.js"></script>
+
     <title>Perfil</title>
 </head>
 <body onload="preencherCampos()">
     <div id="barra-nav">
             <ul>
                 <div class="gerenteG">
-                    <li><img src="img/icone-barra.png" alt="logo">
-                    <li><a href="instrutores.html">Instrutores</a>
-                    <li><a href="#">Alunos</a>
+                    <li><img src="./img/icone-barra.png" alt="logo">
+                    <li><a href="./instrutores.html">Instrutores</a>
+                    <li><a href="./aluno.html">Alunos</a>
                 </div>
                 <div class="instrutor">
-                    <li><img src="img/icone-barra.png" alt="logo">
-                    <li><a href="#">Series</a>
-                    <li><a href="#">Aulas</a>
+                    <li><img src="./img/icone-barra.png" alt="logo">
+                    <li><a href="./serie.html">Series</a>
+                    <li><a href="./aulas.html">Aulas</a>
                 </div>
                 <div class="aluno">
-                    <li><img src="img/icone-barra.png" alt="logo">
-                    <li><a href="serie.html">Series</a>
-                    <li><a href="aulas.html">Aulas</a>
+                    <li><img src="./img/icone-barra.png" alt="logo">
+                    <li><a href="./serie.html">Series</a>
+                    <li><a href="./aulas.html">Aulas</a>
                 </div>
             </ul>
     </div>
     <div id="container">
-        <h1><img src="img/icone-perfil-p.png" alt="simbolo-perfil"></h1>
+        <h1><img src="./img/icone-perfil-p.png" alt="simbolo-perfil"></h1>
         <div class="perfil">
 
                 <label for="name">Nome:</label>
@@ -45,7 +51,7 @@
                 <input id="senha" type="password">
                 <label for="senha">Nova Senha:</label>
                 <input id="novaSenha" type="password">
-                <p id="atention"></p>
+                <p id="msg-perfil"></p>
                 <button id="sair" onclick="fazerLogOff()">Logoff</button>
                 <button id="sair" onclick="mudarSenha()">Alterar Senha</button>
         </div>
@@ -57,8 +63,6 @@
         </footer>
     </div>
 
-    <script  src="js/jsPerfil.js"></script>
-    <script  src="js/jsTipousuario.js"></script>
 </body>
 <script>
     tipoUsuario();

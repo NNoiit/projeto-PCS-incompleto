@@ -1,12 +1,13 @@
 const form = document.querySelector("registrar-form");
 
-function geral() {
+function geral(){
 
     let nome = form.nome.value,
     email = form.email.value,
     cpf = form.cpf.value,   
     matricula = form.matricula.value,
-    senha = form.senha.value;
+    senha = form.senha.value,
+    senha2 = form.senhaConfirma.value;
 
     //Banco de dados
     let dados = {
@@ -20,8 +21,8 @@ function geral() {
     let bancoDados = Object.keys(localStorage);
 
     //Verivicação de senha
-    if (senha != "" && senhaConfirma != "") {
-        confirmaçãoSenha(senha, senhaConfirma);
+    if (senha != "" && senha2 != "") {
+        confirmaçãoSenha(senha, senha2);
     }
 
     function confirmaçãoSenha(senha1, senha2) {
@@ -61,31 +62,4 @@ function geral() {
         }
     }
 
-    //verificação de email
-    if (email != "") {
-        validarEmail(email);
-    }
-
-    function validarEmail(ex) {
-        let usuario = ex.substring(0, ex.indexOf("@"));
-        let dominio = ex.substring(ex.indexOf("@") + 1, ex.length);
-        let test = bancoDados.includes(email);
-        if (test == true) {
-            document.getElementById("msgemail").innerHTML = "<font color='red'>Esse E-mail, já está cadastrado!!!</font>";
-            document.getElementById("email").value = "";
-        } else if ((usuario.length >= 1) &&
-            (dominio.length >= 3) &&
-            (usuario.search("@") == -1) &&
-            (dominio.search("@") == -1) &&
-            (usuario.search(" ") == -1) &&
-            (dominio.search(" ") == -1) &&
-            (dominio.search(".") != -1) &&
-            (dominio.indexOf(".") >= 1) &&
-            (dominio.lastIndexOf(".") < dominio.length - 1)) {
-            document.getElementById("msgemail").innerHTML = "E-mail válido";
-        } else {
-            document.getElementById("msgemail").innerHTML = "<font color='red'>Email inválido </font>";
-            document.getElementById("email").value = "";
-        }
-    }
 }
