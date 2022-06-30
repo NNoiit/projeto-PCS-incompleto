@@ -1,18 +1,27 @@
-function tipoUsuario(){
-    let key = localStorage.getItem("ultimoLogin");
-    let objeto = JSON.parse(localStorage.getItem(key));
-    let usuario = objeto.tipo;
+import { collection, getDocs } from "firebase/firestore";
+
+const tipoUsuario = (item) => {
+
+
     
-    if(usuario == "gerenteG"){
+
+    if(item.usuario == "gerenteG"){
         let div = document.getElementsByClassName("gerenteG");
         div[0].style.display = 'block';
     }
-    else if(usuario == "instrutor"){
+    else if(item.usuario == "instrutor"){
         let div = document.getElementsByClassName("intrutor");
         div[0].style.display = 'block';
 
-    }else if(usuario == "aluno"){
+    }else if(item.usuario == "aluno"){
         let div = document.getElementsByClassName("aluno");
         div[0].style.display = 'block';
     }
-    }
+
+    const querySnapshot = await getDocs(collection(db, "usuario"));
+    querySnapshot.forEach((doc) => {
+        tipoUsuario(doc.data);
+    console.log(`${doc.id} => ${doc.data()}`);
+    });
+
+}

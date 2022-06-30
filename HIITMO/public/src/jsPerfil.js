@@ -1,35 +1,38 @@
+import { usuarios } from "./service";
+
+
+usuarios.get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+        console.log(`${doc.id} => ${doc.data()}`);
+    });
+});
 function preencherCampos(){
-    let key = localStorage.getItem("ultimoLogin");
     if( key !=undefined && key != ""){
-    let objeto = JSON.parse(localStorage.getItem(key));
-    let pNome = objeto.nome;
-    let pEmail = objeto.email;
-    let pCpf = objeto.cpf;
-    let pMatricula = objeto.matricula;
+    
 
 
-    document.getElementById("nome").value = pNome;
-    document.getElementById("email").value = pEmail;
-    document.getElementById("cpf").value = pCpf;
-    document.getElementById("matricula").value = pMatricula;
+    document.getElementById("nome").value = `${doc.nome}`;
+    document.getElementById("email").value = `${$doc.email}`;
+    document.getElementById("cpf").value = `${$doc.cpf}`;
+    document.getElementById("matricula").value = `${doc.matricula}`;
     }
 }
 function fazerLogOff(){
-    localStorage.setItem("ultimoLogin","");
+    if(firebase.auth().currentUser){
+        firebase.auth().signOut()
+    }
     window.location.href = "index.html";
 }
 function mudarSenha(){
-    let novaSenha = document.getElementById("novaSenha").value;
-    let key = localStorage.getItem("ultimoLogin");
-    let objeto = JSON.parse(localStorage.getItem(key));
-    let pSenha = objeto.senha;
+    let novaSenha = document.getElementById("msg-perfil").value;
+    let d = document.getElementById("msg-perfil");
 
-    if(pSenha == document.getElementById("senha")){}
+    if(`${doc.senha}` == document.getElementById("senha")){}
         if(novaSenha != ""){
-        objeto.senha = document.getElementById("novaSenha").value;
-        let objetoJson = JSON.stringify(objeto);
-        localStorage.setItem(key,objetoJson);
-        
-        document.getElementById("atention").innerHTML = "<font color='red'>Senha alterada com exito!!</font>";
+        usuarios("usuarios").doc("`{$doc.nome}`").update({
+            "senha" : `${doc.senha}` = document.getElementById("novaSenha").value
+        }).then(() => {
+            d.innerHTML = "Senha alterada";
+        })
         }
 }

@@ -34,6 +34,7 @@
     font-size: 1.6rem;
 }
 
+
 /*tipo usuario*/
 .aluno, .instrutor, .gerenteG{
     display: none;
@@ -105,6 +106,23 @@ input[type="submit"]:hover {
     text-decoration: none;
     color: #fff;
     
+}
+
+/*botão cadastro*/
+div #cadastro{
+    text-align: center;
+}
+a #cadastro{
+    background-color: #323232;
+    border-radius: 3px;
+    height: 40px;
+    width: 20vh;
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff;  
+}
+button:hover{
+    border-bottom: 2px solid yellow;
 }
 
 /*rodape*/
