@@ -124,6 +124,30 @@ button:hover{
     border-bottom: 2px solid yellow;
 }
 
+
+
+/*botão flutuante*/
+button.fab{
+    width: 54px;
+    height: 54px;
+    border-radius: 50pxx;
+    border: none;
+    font-size: 27px;
+    box-shadow: 2px 2px 2px #323232;
+}
+
+button.fab.fixed{
+    position: fixed;
+}
+
+button.fab.bottom{
+    bottom: 32px;
+}
+
+button.fab.right{
+    right: 32px;
+}
+
 /*rodape*/
 footer {
     text-align: center;

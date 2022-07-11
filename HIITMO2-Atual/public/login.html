@@ -5,12 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css">
-    <script defer src="https//www.gstatic.com/firebase/9.9.0/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="https//www.gstatic.com/firebase/9.9.0/firebase-auth-compat.js"></script>
-    <script defer src="https//www.gstatic.com/firebase/9.9.0/firebase-firestore-compat.js"></script>
-    <script defer src="https//www.gstatic.com/firebase/9.9.0/firebase-storage-compat.js"></script>
-    
 
     <title>Login</title>
 </head>
@@ -25,12 +19,19 @@
 
                 <label for="password">Senha:</label>
                 <input type="password" name="senhaLogin" id="senhaLogin" placeholder="Senha">
-                <p id="textoLogin">Tentativa: 21</p>
+                <p id="textoLogin"></p>
+
             </div>
             <button id="btn-login" value="Logar" onclick="login()">Logar</button>
 
         </div>
     </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"> </script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
+    <script  src="./js/configFirebase.js"></script>
+    <script  src="./js/jsLogin.js"></script>
+    
 </body>
-<script src="src/jsLogin.js" type="module"></script>
 </html>

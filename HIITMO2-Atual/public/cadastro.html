@@ -4,11 +4,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script defer src="https//www.gstatic.com/firebase/9.9.0/firebase-app-compat.js"></script>
-    <!-- include only the Firebase features as you need -->
-    <script defer src="https//www.gstatic.com/firebase/9.9.0/firebase-auth-compat.js"></script>
-    <script defer src="https//www.gstatic.com/firebase/9.9.0/firebase-firestore-compat.js"></script>
-    <script defer src="https//www.gstatic.com/firebase/9.9.0/firebase-storage-compat.js"></script>
     <link rel="stylesheet" href="./css/style.css">
 
     <title>Cadastro Aluno</title>
@@ -23,7 +18,7 @@
                 <input type="text" name="nome" id="nome" placeholder="Digite seu Nome" required="required">
 
                 <label for="email">E-mail:</label>
-                <input type="email" name="email" id="email" placeholder="Digite seu E-mail" required="required" onblur="">
+                <input type="email" name="email" id="email" placeholder="Digite seu E-mail" required="required" onchange="onEmail()">
                 <p id="msgemail"></p>
 
                 <label for="cpf">CPF:</label>
@@ -37,7 +32,7 @@
                 </select>
                 <p id="Psenha"></p>
             </div>
-            <input type="submit" id="btn-submit" value="Registrar" onclick="">
+        <button type="submit" id="btn-submit" onclick="" nome="btnSubmitdisabled="true">Registrar</button>
         </form>
         <p id="atention"></p>
         <a id= "sair" href=""><button>Voltar</button></a>
@@ -45,9 +40,13 @@
     <footer>
         
     </footer>
-    <script  src="./js/" ></script>
-    <script  src="./js/">
-        const form = document.querySelector();
-    </script>
+
+    <!--importações-->
+    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase.js"> </script>
+    <script href="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth-compat.js"></script>
+
+    <!--scripts-->
+    <script  src="./js/configFirebase.js" ></script>
+    <script  src="./js/cadastro.js"></script>
 </body>
 </html>
