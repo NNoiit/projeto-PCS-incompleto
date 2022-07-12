@@ -7,7 +7,17 @@ function pegarInfoDB(){
         })
 }
 
-function mostrarAlunos(){
+/*Nesta função devemos pegar todos os usuarios do tipo ALUNO*/
 
-    /*Nesta função devemos pegar todos os usuarios do tipo ALUNO*/
-}
+user[0].tipo.forEacht(alunos => {
+    let aluno = document.createElement('h1');
+
+    aluno.innerHTML = `
+        <h1>${alunos.nome}</h1>
+        <h4>${alunos.email}</h4>
+        <h4>${alunos.cpf}</h4>
+    `
+
+    document.querySelector('.alunos').append(aluno);
+});
+

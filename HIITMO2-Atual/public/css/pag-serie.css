@@ -22,4 +22,8 @@ textarea{
     -o-border-radius: 4px;
     border: 10px;
     border-color: #323232;
+
+    /*testes de css para o text area*/
+    resize: none;
+
 }
