@@ -8,7 +8,7 @@ function tipoUsuario(){
         div[0].style.display = 'block';
     }
     else if(usuario == "instrutor"){
-        let div = document.getElementsByClassName("intrutor");
+        let div = document.getElementsByClassName("instrutor");
         div[0].style.display = 'block';
 
     }else if(usuario == "aluno"){
