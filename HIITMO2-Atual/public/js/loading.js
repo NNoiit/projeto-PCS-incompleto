@@ -10,3 +10,13 @@ function loading(text) {
     }
     loading.show();
 }
+
+//Ações do botão de cOnfirmação
+document.getElementById("confirma").onclick = function(event){
+    
+}
+
+//Ações do botão de cancelamento
+document.getElementById("concelar").onclick = function(event){
+    
+}

@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase.js"> </script>
-    <script href="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth-compat.js"></script>
+
+    <!--Importações do firebase-->
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"> </script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
+    <!--|||||||||||||||||||||||||-->
     <script  src="./js/configFirebase.js"></script>
     <link rel="stylesheet" href="./css/pag-geral.css">
     <link rel="stylesheet" href="./css/pag-serie.css">
@@ -40,37 +44,15 @@
                     <input id="nova-serie" nome="text" rows="9" cols="75"></input>
                     <p id="msgSerie"></p>
 
-                    <input type="submit" id="btn-submit" value="Confirmar Aluno" onclick="">
+                    <input type="submit" id="btn-submit-aluno" value="Confirmar Aluno" onclick="">
                 </div>
         
             
-                <div class="cadastra-serie">
-                
-                    <label for="serie">Digite o nome da sua serie:</label>
-                    <input type="text" name="serie" id="serie" placeholder="Serie" required="required">
 
-                    <label for="exercicio">Digite o nome do exercicio:</label>
-                    <input type="exercicio" name="exercicio" id="exercicio" placeholder="Exercicio" required="required">
-                    
-                    <label for="repeticoes">Digite o numero de repetições:</label>
-                    <input id="repeticoes" nome="repeticoes"></input>
-                    <p id="msgSerie"></p>
-                    
-                    <input type="submit" id="btn-submit" value="Confirmar Serie" onclick="">
-                </div>
-
-                <div class="confirmar-serie">
-
-                    <h1>Você deseja manter a serie cadastrada?</h1>
-                    <br>
-                    <button class="btn-medio" onclick="">Confirmar</button>
-                        <button class="btn-medio" onclick="">Cancelar</button>
-                </div>
             </div>
         </div>
 
-    <script  src="./js/"></script>
-    <script  src="./js/"></script>
+    <script  src="./js/series.js"></script>
 </body>
 
 </html>

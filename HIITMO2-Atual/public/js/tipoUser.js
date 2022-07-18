@@ -1,5 +1,24 @@
-function tipoUser(tipo){
+function tipoUser(){
+    let tipo = "";
+    firebase.auth().onAuthStateChanged(user =>{
+        if(user){
+          tipo = user;  
+        }
+    });
 
+    firebase.firestore().collection("user").where("email", "==", tipo.email).get().then(snapshot =>{
+        const users = snapshot.docs.map(doc => doc.data());
+        tipo = users[0].tipo;
+    }).catch(error =>{
+            console.log("erro" , error);
+    })
+
+    return tipo;
+    navUser(tipo);
+    dbUser(tipo);
+}
+
+function navUser(tipo){
     const barraNav = document.querySelector('#barra-nav');
     console.log(tipo);
     //Mostra o menu para gerente

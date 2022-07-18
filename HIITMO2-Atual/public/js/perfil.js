@@ -17,8 +17,6 @@ function pegarInfoDB(uid){
 
     firebase.firestore().collection("user").where("email", "==", uid.email).get().then(snapshot =>{
         const users = snapshot.docs.map(doc => doc.data());
-        console.log(users);
-        console.log(uid.cpf);
         preenchercampos(users[0]);
     }).catch(error =>{
             console.log("erro" , error);
@@ -33,5 +31,5 @@ function preenchercampos(users){
     document.getElementById("cpf").value = users.cpf;
 
     //chama a função para criar a barra de menu
-    tipoUser(users.tipo);
+    navUser(users.tipo);
 }

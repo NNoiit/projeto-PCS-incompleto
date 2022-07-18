@@ -77,7 +77,7 @@ form.addEventListener('submit', (event)=>{
         });
 
         firebase.firestore().collection('user').add(dados).then(() =>{
-            console.log("te amo paula");
+            console.log("adicionada");
         }).catch(()=>{
             console.log("falhou");
         });
