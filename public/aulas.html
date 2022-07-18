@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!--Importações do firebase-->
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"> </script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
+    <!--|||||||||||||||||||||||||-->
+
+    <script  src="./js/configFirebase.js"></script>
+    <link rel="stylesheet" href="./css/pag-geral.css">
+    <title>Evento</title>
+</head>
+<body>
+    <div id="barra-nav">
+        <ul>
+            <li><img src="./img/icone-barra.png" alt="logo">
+            <li><a href="serie.html">Series</a>
+            <li><a href="aulas.html">Aulas</a>
+                <li><a href="perfil.html">Perfil</a>
+        </ul>
+    </div>
+    <div id="container">
+        <div class="fichas">
+        <h1><img src="./img/eventoS.png" alt="simbolo-aula"></h1>
+    
+            <div class="aluno">
+               
+            </div>
+            <div class="instrutor">
+                <div class="box-container">
+                
+    
+                    <label for="aula">Digite um nome para a aula:</label>
+                    <input name="aula" id="aula" placeholder="Aula" required="required">
+    
+                    <label for="text">Digite uma breve descrição da Aula</label>
+                    <input type="text" nome="descriao-aula" id= "descricao-aula" placeholder="Descrção da Aula">
+                    <label for="text">Digite a data da Aula</label>
+                    <input type="date">
+                    <p id="msgEvento"></p>
+    
+                    <button  class="btn-geral" type="submit" id="btn-submit" >Cadastrar</button>
+            </div>
+            <div class="confirmar-aula">
+            
+
+                <h1>Você deseja manter a aula cadastrada?</h1>
+                <br>
+                <button class="btn-medio">Confirmar</button>
+                    <button class="btn-medio">Cancelar</button>
+                
+            </div>
+    </div>
+    </div>
+    </div>
+    <script  src="./js/aula.js"></script>
+    
+</body>
+</html>
