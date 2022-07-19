@@ -1,5 +1,5 @@
 function dbUser(tipo){
-    //Pegadno os dados no firestore no caso aluno
+    //Pegando os dados no firestore no caso aluno
     if(tipo == "aluno"){
         firebase.firestore().collection("series").where('email', '==', user.email).get().then((snapshot) =>{
             const serie = snapshot.docs.map((doc) => doc.data());
@@ -33,8 +33,8 @@ function mostraSerie(serie){
         let div = document.createElement('div');
 
         div.innerHTML = `
-        
             <h1>${serie.nome}</h1>
+            <button class="fab fixed bottom right" id=""btn-novaSerie"">+</button>
         `
             bloco.append(div);
             
@@ -64,33 +64,9 @@ function mostraSerie(serie){
 //////////////////////////////////////////////////////////////////
 
 //funções para controle da pagina
-document.getElementById("btn-submit-aluno").onclick = function(event) {
-    event.preventDefault();
-
-    let bloco = document.querySelector('.instrutor');
-
-    let div = document.createElement('div');
-
-    div.innerHTML = `
-        <div>
-                
-            <label for="serie">Digite o nome da sua serie:</label>
-            <input type="text" name="serie" id="serie" placeholder="Serie" required="required">
-
-            <label for="exercicio">Digite o nome do exercicio:</label>
-            <input type="exercicio" name="exercicio" id="exercicio" placeholder="Exercicio" required="required">
-            
-            <label for="repeticoes">Digite o numero de repetições:</label>
-            <input id="repeticoes" nome="repeticoes"></input>
-            <p id="msgSerie"></p>
-            
-            <input type="submit" id="btn-submit-evento" value="Confirmar Serie" onclick="confirmar()">
-        </div>
-        `
-    bloco.append(div);
-
+document.getElementById("btn-novaSerie").onclick = function() {
     let divPrincipal = document.getElementsByClassName("cadastrar-serie");
-        divPrincipal[0].style.display = 'none';
+        divPrincipal[0].style.display = 'block';
 }
 
 function confirmar() {

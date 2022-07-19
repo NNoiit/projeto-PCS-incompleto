@@ -41,11 +41,19 @@
                     <label for="matricula">Digite o CPF do Aluno:</label>
                     <input type="cpf" name="cpf" id="cpf" placeholder="CPF do Aluno" required="required">
                     
-                    <label for="text">Digite o nome do exercicio e a quantidade</label>
-                    <input id="nova-serie" nome="text" rows="9" cols="75"></input>
-                    <p id="msgSerie"></p>
+                    <label for="serie">Digite o nome da sua serie:</label>
 
-                    <input type="submit" id="btn-submit-aluno" value="Confirmar Aluno" onclick="">
+                    <input type="text" name="serie" id="serie" placeholder="Serie" required="required">
+
+                    <label for="exercicio">Digite o nome do exercicio:</label>
+                    <input type="exercicio" name="exercicio" id="exercicio" placeholder="Exercicio" required="required">
+                    
+                    <label for="repeticoes">Digite o numero de repetições:</label>
+                    <input id="repeticoes" nome="repeticoes" placeholder="Repetições"></input>
+                    <p id="msgSerie"></p>
+                    
+                    <input type="submit" id="btn-submit-evento" value="Confirmar Serie">
+                    <p id="msgSerie"></p>
                 </div>
         
             
