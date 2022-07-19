@@ -1,19 +1,5 @@
-function tipoUser(){
-    let tipo = "";
-    firebase.auth().onAuthStateChanged(user =>{
-        if(user){
-          tipo = user;  
-        }
-    });
+function tipoUser(tipo){
 
-    firebase.firestore().collection("user").where("email", "==", tipo.email).get().then(snapshot =>{
-        const users = snapshot.docs.map(doc => doc.data());
-        tipo = users[0].tipo;
-    }).catch(error =>{
-            console.log("erro" , error);
-    })
-
-    return tipo;
     navUser(tipo);
     dbUser(tipo);
 }
