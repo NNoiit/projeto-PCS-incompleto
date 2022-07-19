@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 //Pegadno os dados do tipo INSTRUTOR no firestore
 firebase.firestore().collection("user").where('tipo', '==', 'instrutor').get().then((snapshot) =>{
@@ -39,3 +40,69 @@ function verificaInstrutor(instrutor){
 
 //função para deletar o instrutor
 function deletarInstrutor(instrutor){}
+=======
+//Pegadno os dados do tipo INSTRUTOR no firestore
+firebase.firestore().collection("user").where('tipo', '==', 'instrutor').get().then((snapshot) =>{
+    const users = snapshot.docs.map((doc) => doc.data());
+    mostraInstrutores(users);
+    
+}).catch(error =>{
+        console.log("erro" , error);
+})
+
+//função para criar as divs dos INSTRUTORES no firestore
+function mostraInstrutores(instrutor){
+
+    instrutor.forEach(instrutor => {
+        let bloco = document.querySelector('#instrutores');
+    
+        let div = document.createElement('div');
+        div.id = instrutor.uid;
+        
+        //criando os botões
+        let btnAlterar = document.createElement('button');
+        btnAlterar.innerHTML = "Alterar";
+
+        let btnExcluir = document.createElement('button');
+        btnExcluir.innerHTML = "Excluir";
+
+        div.innerHTML = `
+            <h1>${instrutor.nome}</h1>
+            <h4>${instrutor.email}</h4>
+            <h4>${instrutor.cpf}</h4>
+        `
+        div.appendChild(btnAlterar);
+        div.appendChild(btnExcluir);
+        bloco.append(div);
+
+            //especificando o evento de click para o botão editar
+            btnAlterar.addEventListener('click', () =>{
+                window.location.href = "../cadastro.html?email=" + instrutor.email;
+            });
+
+            //Exclui a div-usuario
+            btnExcluir.addEventListener('click', (event) =>{
+                event.stopPropagation();
+
+                confirmDelet(instrutor);
+            });
+    });
+}
+
+//função para deletar o instrutor
+function removerInstrutor(instrutor){
+    firebase.firestore().collection().doc(instrutor.uid).delete().then(()=>{
+        document.getElementById(transaction.uid).remove();
+    })
+}
+
+//confirma o delete
+function confirmDelet(instrutor){
+    const showRemover = confirm(`Deseja excluir o ${instrutor.nome}`);
+
+    if(showRemover){
+        removerInstrutor(instrutor);
+    }
+}
+
+>>>>>>> cf95a91d19080c583842f8da13503f201cbaefb3

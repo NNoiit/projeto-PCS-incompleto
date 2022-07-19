@@ -1,4 +1,7 @@
-
+/*cadastrar serie*/
+.cadastrar-serie{
+    display: none;
+}
 /*botões da serie*/
 input[type="submit"]{
     background-color: #323232;
