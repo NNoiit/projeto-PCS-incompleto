@@ -19,18 +19,16 @@ firebase.firestore().collection("user").where('tipo', '==', 'aluno').get().then(
 function mostraAlunos(aluno){
 
     aluno.forEach(aluno => {
-        aluno;
-        let bloco = document.querySelector('#alunoes');
+        let bloco = document.querySelector('#alunos');
     
-        let contUser = document.createElement('div');
+        let div = document.createElement('div');
 
-        contUser.innerHTML = `
-        
+        div.innerHTML = `
             <h1>${aluno.nome}</h1>
             <h4>${aluno.email}</h4>
             <h4>${aluno.cpf}</h4>
         `
-            bloco.append(contUser);
+            bloco.append(div);
 
     });
 

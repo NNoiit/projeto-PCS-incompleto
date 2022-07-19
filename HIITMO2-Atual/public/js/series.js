@@ -24,7 +24,6 @@ function dbUser(tipo){
     }
 }
 
-console.log(tipoUser());
 function mostraSerie(serie){
 
     serie.forEach(serie => {

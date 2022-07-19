@@ -1,4 +1,4 @@
-let msg = "Carregando...";
+/*let msg = "Carregando...";
 
 loading(msg);
 
@@ -9,14 +9,14 @@ function loading(text) {
         loading.text(text);
     }
     loading.show();
-}
+}*/
 
 //Ações do botão de cOnfirmação
-document.getElementById("confirma").onclick = function(event){
+//document.getElementById("confirma").onclick = function(event){
     
-}
+//}
 
 //Ações do botão de cancelamento
-document.getElementById("concelar").onclick = function(event){
-    
+function btnCancelar(){
+    location.reload();
 }
