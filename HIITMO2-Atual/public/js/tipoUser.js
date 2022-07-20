@@ -1,12 +1,12 @@
 function tipoUser(tipo){
-
     navUser(tipo);
     dbUser(tipo);
 }
 
+
 function navUser(tipo){
     const barraNav = document.querySelector('#barra-nav');
-    console.log(tipo);
+    
     //Mostra o menu para gerente
     if(tipo == 'gerente'){
     

@@ -1,27 +1,43 @@
+//pegando o form de serie
+const form = document.querySelector("[id=form-serie]");
+
+firebase.auth().onAuthStateChanged(user =>{
+    if(user){
+      dbUser(user);  
+    }
+});
+
 function dbUser(tipo){
     //Pegando os dados no firestore no caso aluno
-    if(tipo == "aluno"){
-        firebase.firestore().collection("series").where('email', '==', user.email).get().then((snapshot) =>{
-            const serie = snapshot.docs.map((doc) => doc.data());
+    firebase.firestore().collection('user').where('tipo', '==', tipo.email).get().then((snapshot) =>{
+        const user = snapshot.docs.map((doc) => doc.data());
 
-            mostraSerie(serie);
+        console.log(user[0]);
+        console.log(user[0].tipo);
+        if(user[0].tipo == "aluno"){
+            firebase.firestore().collection("series").where('cpf', '==', user.cpf).get().then((snapshot) =>{
+                const serie = snapshot.docs.map((doc) => ({...doc.data(), uid: doc.id}));
+                let btnEscondido = document.getElementsById("btn-novaSerie");
+            btnEscondido.style.display = 'none';
             
-        }).catch(error =>{
-                console.log("erro" , error);
-        })
-    }
-
-    //Pegadno os dados no firestore no caso do instrutor
-    if(tipo == "instrutor"){
-        firebase.firestore().collection("series").get().then((snapshot) =>{
-            const serie = snapshot.docs.map((doc) => doc.data());
-
             mostraSerie(serie);
-            
-        }).catch(error =>{
-                console.log("erro" , error);
-        })
-    }
+                
+            }).catch(error =>{
+                    console.log("erro" , error);
+            })
+        }
+
+        //Pegadno os dados no firestore no caso do instrutor
+        if(user[0].tipo == "instrutor"){
+            firebase.firestore().collection("series").get().then((snapshot) =>{
+                const serie = snapshot.docs.map((doc) => ({...doc.data(), uid: doc.id}));
+                mostraSerie(serie);
+                
+            }).catch(error =>{
+                    console.log("erro" , error);
+            })
+        }
+    })
 }
 
 function mostraSerie(serie){
@@ -29,60 +45,94 @@ function mostraSerie(serie){
     serie.forEach(serie => {
         console.log(serie);
         let bloco = document.querySelector('.aluno');
-    
         let div = document.createElement('div');
+        div.id = serie.uid;
+        
+        //criando os botões
+        let btnAlterar = document.createElement('button');
+        btnAlterar.innerHTML = "Alterar";
+
+        let btnExcluir = document.createElement('button');
+        btnExcluir.innerHTML = "Excluir";
+        
 
         div.innerHTML = `
             <h1>${serie.nome}</h1>
-            <button class="fab fixed bottom right" id=""btn-novaSerie"">+</button>
         `
-            bloco.append(div);
+        bloco.append(div);
+        
+        div.addEventListener('click', () =>{
             
-            console.log(div);
-            console.log(div);
+        })
+        //especificando o evento de click para o botão editar
+        btnAlterar.addEventListener('click', () =>{
+            window.location.href = "../cadastro-serie.html?uid=" + instrutor.uid;
+        });
+
+        //Exclui a div-usuario
+        btnExcluir.addEventListener('click', (event) =>{
+            event.stopPropagation();
+
+            confirmDelet(serie);
+        });
     });
 
 }
 
-//cadastro das series no firestore
-/*form.addEventListener('submit', (event)=>{
+//passando para a pagina de cadastro de serie
+form.addEventListener('submit', (event)=>{
 
     event.preventDefault();
-
+    let exercicio = form.exercicio.value, cpf = form.cpf.value, serie = form.serie.value, repeticoes = form.repeticoes.value;
     const dados = {
-        email: email,
-        nome: nome
+        cpf: cpf,
+        exercicio: exercicio,
+        serie: serie,
+        repeticoes: repeticoes
     }
-    firebase.firestore().collection('series').add(dados).then(() =>{
-        console.log("cadastrada");
-    }).catch(()=>{
-        console.log("falhou");
-    });
-    
-})*/
+    checkCpf(dados);
+})
 
 //////////////////////////////////////////////////////////////////
 
 //funções para controle da pagina
 document.getElementById("btn-novaSerie").onclick = function() {
-    let divPrincipal = document.getElementsByClassName("cadastrar-serie");
-        divPrincipal[0].style.display = 'block';
+    let divPrincipal = document.getElementById("div-form-serie");
+        divPrincipal.style.display = 'block';
 }
 
-function confirmar() {
+function checkCpf(dados){
 
-    let bloco = document.querySelector('.instrutor');
+    firebase.firestore().collection('user').where('cpf', '==', cpf.value).get().then((snapshot) =>{
+        const user = snapshot.docs.map((doc) => doc.data());
+        if(user.length > 0){
+            console.log("cpf ja cadastrado");
+            firebase.firestore().collection('series').add(dados).then(() =>{
+                console.log("cadastrada");
+                window.location.href = "../serie.html";
+            }).catch(()=>{
+                console.log("falhou");
+            });
+        }else{
+            console.log("cpf não cadastrado");
+            return true;
+        }
+    })
 
-    let div = document.createElement('div');
+}
 
-    div.innerHTML = `  
-        <div> 
-            <h1>Você deseja manter a serie cadastrada?</h1>
-            <br>
-            <button id="confirmar" class="btn-medio" onclick="">Confirmar</button>
-            <button id="concelar" class="btn-medio" onclick="">Cancelar</button>
-        </div>
-        `
-    bloco.append(div);
+//função para deletar a serie selecionada
+function removerAluno(serie){
+    firebase.firestore().collection('user').doc(serie.uid).delete().then(()=>{
+        document.getElementById(serie.uid).remove();
+    })
+}
 
+//confirma o delete
+function confirmDelet(serie){
+    const showRemover = confirm(`Deseja excluir o ${serie.nome}`);
+
+    if(showRemover){
+        removerAluno(serie);
+    }
 }

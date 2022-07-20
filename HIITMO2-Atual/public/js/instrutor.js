@@ -1,6 +1,7 @@
 //Pegadno os dados do tipo INSTRUTOR no firestore
 firebase.firestore().collection("user").where('tipo', '==', 'instrutor').get().then((snapshot) =>{
-    const users = snapshot.docs.map((doc) => doc.data());
+    const users = snapshot.docs.map((doc) => ({...doc.data(), uid: doc.id}));
+
     mostraInstrutores(users);
     
 }).catch(error =>{
@@ -9,6 +10,7 @@ firebase.firestore().collection("user").where('tipo', '==', 'instrutor').get().t
 
 //função para criar as divs dos INSTRUTORES no firestore
 function mostraInstrutores(instrutor){
+    console.log(instrutor);
 
     instrutor.forEach(instrutor => {
         let bloco = document.querySelector('#instrutores');
@@ -34,7 +36,7 @@ function mostraInstrutores(instrutor){
 
             //especificando o evento de click para o botão editar
             btnAlterar.addEventListener('click', () =>{
-                window.location.href = "../cadastro.html?email=" + instrutor.email;
+                window.location.href = "../cadastro.html?uid=" + instrutor.uid;
             });
 
             //Exclui a div-usuario
@@ -48,8 +50,8 @@ function mostraInstrutores(instrutor){
 
 //função para deletar o instrutor
 function removerInstrutor(instrutor){
-    firebase.firestore().collection().doc(instrutor.uid).delete().then(()=>{
-        document.getElementById(transaction.uid).remove();
+    firebase.firestore().collection('user').doc(instrutor.uid).delete().then(()=>{
+        document.getElementById(instrutor.uid).remove();
     })
 }
 

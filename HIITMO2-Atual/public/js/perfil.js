@@ -13,16 +13,19 @@ firebase.auth().onAuthStateChanged(user =>{
 });
 
 //pegando as informações do BD
-function pegarInfoDB(uid){
+function pegarInfoDB(email){
 
-    firebase.firestore().collection("user").where("email", "==", uid.email).get().then(snapshot =>{
+    firebase.firestore().collection("user").where("email", "==", email.email).get().then(snapshot =>{
         const users = snapshot.docs.map(doc => doc.data());
+        console.log(users);
+        console.log(users[0].tipo);
         preenchercampos(users[0]);
     }).catch(error =>{
             console.log("erro" , error);
     })
 
 }
+
 
 //usando as informações apra preencher os campos do perfil
 function preenchercampos(users){
@@ -33,30 +36,3 @@ function preenchercampos(users){
     //chama a função para criar a barra de menu
     tipoUser(users.tipo);
 }
-
-//função para alterar para pagina de alteração de senha
-function alterarPerfil(){
-
-    let bloco = document.querySelector('.perfil');
-
-    let div = document.createElement('div');
-
-    div.innerHTML = `
-        <div id="altera-senha">
-        <label for="senha">Senha Atual:</label>
-        <input id="senha" type="password">
-        <label for="senha">Nova Senha:</label>
-        <input id="novaSenha" type="password">
-        <label for="senha">Confirme a nova Senha:</label>
-        <input id="novaSenhaC" type="password">
-        <button class="btn-medio" onclick="alterarSenha()">Confirmar</button>
-        <button class="btn-medio" id="cancelar" onclick="btnCancelar()">Cancelar</button>
-        </div>
-        `
-    bloco.append(div);
-
-    let divPrincipal = document.querySelector("#perfil-bloco");
-        divPrincipal.style.display = 'none';
-}
-
-//função para alteração de senha

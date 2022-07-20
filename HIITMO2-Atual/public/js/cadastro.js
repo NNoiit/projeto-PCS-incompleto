@@ -1,6 +1,6 @@
 if(!verificaCadastro()){
-    const email= pegaEmailUrl();
-    pegarCadastroEmail(email);
+    const uid = pegaEmailUrl();
+    pegarCadastroEmail(uid);
 }
 
 //pega os dados do formulario
@@ -9,20 +9,19 @@ const form = document.querySelector("[id=registrar-form]");
 //Função para pegar o email do url
 function pegaEmailUrl(){
     const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get('email');
+    return urlParams.get('uid');
 }
 //verifica se é uma alteração ou cadastro
 function verificaCadastro(){
     return pegaEmailUrl() ? false : true;
 }
 
-function pegarCadastroEmail(email){
+function pegarCadastroEmail(uid){
 
-    firebase.firestore().collection("user").where("email", "==", email).get().then(snapshot =>{
-        const users = snapshot.docs.map(doc => doc.data());
+    firebase.firestore().collection("user").doc(uid).get().then(doc =>{
 
-        if(users.length > 0){
-            preencherCadastro(users[0]);
+        if(doc.exists){
+            preencherCadastro(doc.data());
             //preencherForm(doc.data());
         }else{
             console.log("Não existe");
@@ -113,21 +112,7 @@ form.addEventListener('submit', (event)=>{
         
         if(verificaCadastro()){
 
-            firebase.auth().createUserWithEmailAndPassword(email, cpf).then(data =>{
-
-                //Cadastrando no firestore
-                firebase.firestore().collection('user').add(dados).then(() =>{
-                    console.log("adicionada");
-                }).catch(()=>{
-                    console.log("falhou");
-                });
-
-                /* TALVEZ SEJA UMA FORMA MELHOR DE OBTER O UID
-                const uid = data.user.uid;
-
-                const users = firebase.firestore().collection('user');
-                users.doc(uid).set(dados);
-            */ 
+            firebase.auth().createUserWithEmailAndPassword(email, cpf).then(() =>{
                 alert("Usuario cadastrado com sucesso!");
 
                 //Resdireciona para pagina de instrutores
@@ -144,8 +129,15 @@ form.addEventListener('submit', (event)=>{
                 alert("Erro ao cadastrar usuario!" , error);
             });
 
+            //Cadastrando no firestore
+            firebase.firestore().collection('user').add(dados).then(() =>{
+                console.log("adicionada");
+            }).catch(()=>{
+                console.log("falhou");
+            });
+
         } else{
-            firebase.firestore().collection('user').doc(`user/${email}`).update(dados).then(() =>{
+            firebase.firestore().collection('user').doc(pegaEmailUrl()).update(dados).then(() =>{
                 console.log("atualizada");
             }).catch(()=>{
                 console.log("falhou");

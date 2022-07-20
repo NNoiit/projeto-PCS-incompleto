@@ -33,35 +33,31 @@
             <div class="aluno">   
             </div>
             <div class="instrutor">
-                <div class="cadastrar-serie">
+                <div id="div-form-serie">
+                    <form id = "form-serie">
+                        <label for="matricula">Digite o CPF do Aluno:</label>
+                        <input type="cpf" name="cpf" id="cpf" placeholder="CPF do Aluno" required="required">
+                        
+                        <label for="serie">Digite o nome da sua serie:</label>
+                        <input type="text" name="serie" id="serie" placeholder="Serie" required="required">
 
-                    <label for="email">Digite o E-mail do Aluno:</label>
-                    <input type="email" name="email" id="email" placeholder="E-mail Aluno" required="required">
-
-                    <label for="matricula">Digite o CPF do Aluno:</label>
-                    <input type="cpf" name="cpf" id="cpf" placeholder="CPF do Aluno" required="required">
+                        <label for="exercicio">Digite o nome do exercicio:</label>
+                        <input type="exercicio" name="exercicio" id="exercicio" placeholder="Exercicio" required="required">
+                        
+                        <label for="repeticoes">Digite o numero de repetições:</label>
+                        <input id="repeticoes" nome="repeticoes" placeholder="Repetições"></input>
+                        <p id="msgSerie"></p>
                     
-                    <label for="serie">Digite o nome da sua serie:</label>
-
-                    <input type="text" name="serie" id="serie" placeholder="Serie" required="required">
-
-                    <label for="exercicio">Digite o nome do exercicio:</label>
-                    <input type="exercicio" name="exercicio" id="exercicio" placeholder="Exercicio" required="required">
-                    
-                    <label for="repeticoes">Digite o numero de repetições:</label>
-                    <input id="repeticoes" nome="repeticoes" placeholder="Repetições"></input>
-                    <p id="msgSerie"></p>
-                    
-                    <input type="submit" id="btn-submit-evento" value="Confirmar Serie">
-                    <p id="msgSerie"></p>
+                        <input type="submit" id="btn-submit-evento" value="Confirmar Serie">
+                        <p id="msgSerie"></p>
+                    </form>
                 </div>
         
-            
-
+                <a id="btn-novaSerie"><button class="fab fixed bottom right">+</button></a>
             </div>
         </div>
-
     <script  src="./js/series.js"></script>
+    
 </body>
 
 </html>
