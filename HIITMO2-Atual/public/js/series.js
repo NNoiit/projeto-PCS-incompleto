@@ -1,50 +1,58 @@
 //pegando o form de serie
 const form = document.querySelector("[id=form-serie]");
 
-firebase.auth().onAuthStateChanged(user =>{
-    if(user){
-      dbUser(user);  
-    }
-});
+function mostraAula(aula, tipo){
 
-function dbUser(tipo){
-    //Pegando os dados no firestore no caso aluno
-    firebase.firestore().collection('user').where('tipo', '==', tipo.email).get().then((snapshot) =>{
-        const user = snapshot.docs.map((doc) => doc.data());
+    aula.forEach(aula => {
+    
+        let bloco = document.querySelector('.bloco-serie');
+        let div = document.createElement('div');
+        div.id = aula.uid;
+        
+        //criando os botões
+        let btnAlterar = document.createElement('button');
+        btnAlterar.innerHTML = "Alterar";
 
-        console.log(user[0]);
-        console.log(user[0].tipo);
-        if(user[0].tipo == "aluno"){
-            firebase.firestore().collection("series").where('cpf', '==', user.cpf).get().then((snapshot) =>{
-                const serie = snapshot.docs.map((doc) => ({...doc.data(), uid: doc.id}));
-                let btnEscondido = document.getElementsById("btn-novaSerie");
-            btnEscondido.style.display = 'none';
+        let btnExcluir = document.createElement('button');
+        btnExcluir.innerHTML = "Excluir";
+        
+
+        div.innerHTML = `
+            <h1>${aula.exercicio}</h1>
+        `
+        bloco.append(div);
+        if(tipo == "instrutor"){
+            bloco.appendChild(btnAlterar);
+            bloco.appendChild(btnExcluir);
+        }
+
+        div.addEventListener('click', () =>{
             
-            mostraSerie(serie);
-                
-            }).catch(error =>{
-                    console.log("erro" , error);
-            })
-        }
+        })
+        //especificando o evento de click para o botão editar
+        btnAlterar.addEventListener('click', () =>{
+            document.getElementsByClassName("bloco-serie")[0].style.display = 'none';
 
-        //Pegadno os dados no firestore no caso do instrutor
-        if(user[0].tipo == "instrutor"){
-            firebase.firestore().collection("series").get().then((snapshot) =>{
-                const serie = snapshot.docs.map((doc) => ({...doc.data(), uid: doc.id}));
-                mostraSerie(serie);
-                
-            }).catch(error =>{
-                    console.log("erro" , error);
-            })
-        }
-    })
+            document.getElementById("div-form-serie").style.display = 'block';
+
+            pegarDadoAula(aula.uid);
+        });
+
+        //Exclui a div-usuario
+        btnExcluir.addEventListener('click', (event) =>{
+            event.stopPropagation();
+
+            confirmDelet(aula, "aula");
+        });
+    });
+
 }
 
-function mostraSerie(serie){
+function mostraSerie(serie, tipo){
 
     serie.forEach(serie => {
-        console.log(serie);
-        let bloco = document.querySelector('.aluno');
+    
+        let bloco = document.querySelector('.bloco-serie');
         let div = document.createElement('div');
         div.id = serie.uid;
         
@@ -57,23 +65,32 @@ function mostraSerie(serie){
         
 
         div.innerHTML = `
-            <h1>${serie.nome}</h1>
+            <h1>${serie.exercicio}</h1>
         `
         bloco.append(div);
-        
+
+        if(tipo == "instrutor"){
+            bloco.appendChild(btnAlterar);
+            bloco.appendChild(btnExcluir);
+        }
+
         div.addEventListener('click', () =>{
             
         })
         //especificando o evento de click para o botão editar
         btnAlterar.addEventListener('click', () =>{
-            window.location.href = "../cadastro-serie.html?uid=" + instrutor.uid;
+            document.getElementsByClassName("bloco-serie")[0].style.display = 'none';
+
+            document.getElementById("div-form-serie").style.display = 'block';
+
+            pegarDadoSerie(serie.uid);
         });
 
         //Exclui a div-usuario
         btnExcluir.addEventListener('click', (event) =>{
             event.stopPropagation();
 
-            confirmDelet(serie);
+            confirmDelet(serie, "serie");
         });
     });
 
@@ -83,36 +100,62 @@ function mostraSerie(serie){
 form.addEventListener('submit', (event)=>{
 
     event.preventDefault();
+
     let exercicio = form.exercicio.value, cpf = form.cpf.value, serie = form.serie.value, repeticoes = form.repeticoes.value;
-    const dados = {
-        cpf: cpf,
-        exercicio: exercicio,
-        serie: serie,
-        repeticoes: repeticoes
+    uid = form.uid.value;
+    if(!uid){
+        const dados = {
+            cpf: cpf,
+            exercicio: exercicio,
+            serie: serie,
+            repeticoes: repeticoes
+        }
+        checkCpf(dados, uid);
+    } else if(uid){
+            dados = {
+            exercicio: exercicio,
+            serie: serie,
+            repeticoes: repeticoes
+            }
+        checkCpf(dados, uid);
     }
-    checkCpf(dados);
 })
 
 //////////////////////////////////////////////////////////////////
 
 //funções para controle da pagina
 document.getElementById("btn-novaSerie").onclick = function() {
+    let divSerie = document.getElementsByClassName("bloco-serie");
+    divSerie[0].style.display = 'none';
+
     let divPrincipal = document.getElementById("div-form-serie");
-        divPrincipal.style.display = 'block';
+    divPrincipal.style.display = 'block';
 }
 
-function checkCpf(dados){
+//checa se o do aluno cpf existe e cadastra
+function checkCpf(dados, serie){
 
     firebase.firestore().collection('user').where('cpf', '==', cpf.value).get().then((snapshot) =>{
         const user = snapshot.docs.map((doc) => doc.data());
         if(user.length > 0){
             console.log("cpf ja cadastrado");
-            firebase.firestore().collection('series').add(dados).then(() =>{
-                console.log("cadastrada");
-                window.location.href = "../serie.html";
-            }).catch(()=>{
-                console.log("falhou");
-            });
+
+            if(uid == null){
+                console.log("puala");
+                firebase.firestore().collection('series').add(dados).then(() =>{
+                    console.log("cadastrada");
+                    window.location.reload();
+                }).catch(()=>{
+                    console.log("falhou");
+                });
+            } else if(uid) {
+                firebase.firestore().collection('series').doc(serie.uid).update(dados).then(() =>{
+                    console.log("atualizada");
+                }).catch(()=>{
+                    console.log("falhou");
+                });
+            }
+
         }else{
             console.log("cpf não cadastrado");
             return true;
@@ -121,18 +164,75 @@ function checkCpf(dados){
 
 }
 
+//função para pegar os dados no db
+function pegarDadoSerie(uid){
+
+    firebase.firestore().collection("series").doc(uid).get().then(doc =>{
+
+        if(doc.exists){
+            preencherSerie(doc.data());
+        }else{
+            console.log("Não existe");
+            window.location.href = "../instrutores.html";
+        }
+    }).catch(error =>{
+            console.log("erro" , error);
+    }
+    )
+}
+
+//função para pegar os dados no db
+function pegarDadoAula(uid){
+
+    firebase.firestore().collection("aula").doc(uid).get().then(doc =>{
+
+        if(doc.exists){
+            preencherAula(doc.data());
+        }else{
+            console.log("Não existe");
+            window.location.href = "../instrutores.html";
+        }
+    }).catch(error =>{
+            console.log("erro" , error);
+    }
+    )
+}
+
+function preencherSerie(dados){
+    document.getElementById("cpf").value = dados.cpf;
+    document.getElementById("cpf").disabled = true;
+
+    document.getElementById("exercicio").value = dados.exercicio;
+    document.getElementById("repeticoes").value = dados.repeticoes;
+    document.getElementById("serie").value = dados.serie;
+    document.getElementById("uid").value = dados.uid;
+
+}
+
 //função para deletar a serie selecionada
-function removerAluno(serie){
-    firebase.firestore().collection('user').doc(serie.uid).delete().then(()=>{
+function removerSerie(serie){
+    firebase.firestore().collection('series').doc(serie.uid).delete().then(()=>{
         document.getElementById(serie.uid).remove();
     })
 }
 
+//função para deletar a aula selecionada
+function removerAula(aula){
+    firebase.firestore().collection('aulas').doc(aula.uid).delete().then(()=>{
+        document.getElementById(aula.uid).remove();
+    })
+    window.location.reload();
+}
+
 //confirma o delete
-function confirmDelet(serie){
-    const showRemover = confirm(`Deseja excluir o ${serie.nome}`);
+function confirmDelet(dado, tipo){
+    const showRemover = confirm(`Deseja excluir o ${dado.nome}`);
 
     if(showRemover){
-        removerAluno(serie);
+        if(tipo == "serie")
+        removerSerie(dado);
+
+        if(tipo == "aula")
+        removerAula(dado);
     }
 }

@@ -28,8 +28,8 @@ function navUser(tipo){
             <ul>
                 <div class="instrutor">
                     <li><img src="./img/icone-barra.png" alt="logo">
-                    <li><a href="serie.html">Series</a>
-                    <li><a href="aulas.html">Aulas</a>
+                    <li><a href="serie-instrutor.html">Series</a>
+                    <li><a href="aulas-instrutor.html">Aulas</a>
                 </div>
             </ul>
         `
@@ -42,8 +42,8 @@ function navUser(tipo){
             <ul>
                 <div class="aluno">
                     <li><img src="./img/icone-barra.png" alt="logo">
-                    <li><a href="serie.html">Series</a>
-                    <li><a href="aulas.html">Aulas</a>
+                    <li><a href="serie-aluno.html">Series</a>
+                    <li><a href="aulas-aluno.html">Aulas</a>
                 </div>
             </ul>
         `
