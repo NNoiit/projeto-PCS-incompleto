@@ -39,7 +39,7 @@ function preencherCadastro(users){
     document.getElementById("email").value = users.email;
     document.getElementById("email").disabled = true;
     document.getElementById("cpf").value = users.cpf;
-    let select = document.getElementById('tipo');
+    let select = document.getElementById("tipo");
     select.options[select.selectedIndex].value = users.tipo;
 }
 
@@ -47,22 +47,25 @@ function preencherCadastro(users){
 function onEmail(){
 
     if(/\S+@\S+\.\S+/.test(email.value)){
-        document.getElementById("atention").innerHTML = "Email valido";
+        document.getElementById("email-atention").innerHTML = "E-mail valido";
     }else{
-        document.getElementById("atention").innerHTML = "Email invalido";
+        document.getElementById("email-atention").innerHTML = "E-mail invalido";
     }
 }
 
 //verifica se o cpf já esta cadastrado
 function onCpf(){
 
-    const cpfExiste = firebase.firestore().collection('user').where('cpf', '==', cpf.value);
-
-    if(cpfExiste > 0){
-        document.getElementById("atention").innerHTML = "Este CPF já está cadastrado";
-        return false;
-    }
-    return true;
+    firebase.firestore().collection('user').where('cpf', '==', form.cpf.value).get().then((snapshot)=>{
+        const user = snapshot.docs.map((doc) => doc.data());
+       
+        if(user.length > 0){
+            document.getElementById("cpf-atention").innerHTML = "Este CPF já está cadastrado";
+            return false;
+        }
+        document.getElementById("cpf-atention").innerHTML = "CPF disponivel";
+        return true;
+    })
 }
 //verifica se os campos foram preenchidos
 function formValid(){
@@ -100,7 +103,7 @@ form.addEventListener('submit', (event)=>{
 
     //confirmar que os cmpos foram preenchidos
     if(!formValid()){
-        document.getElementById("atention").innerHTML = "Preencha todos os campos!!";
+        document.getElementById("form-atention").innerHTML = "Preencha todos os campos corretamente!!";
     }else{
         const dados = {
         nome: nome,

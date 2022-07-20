@@ -33,10 +33,11 @@
 
                 <label for="email">E-mail:</label>
                 <input type="email" name="email" id="email" placeholder="Digite seu E-mail" required="required" onchange="onEmail()">
-                <p id="msgemail"></p>
+                <p id="email-atention"></p>
 
                 <label for="cpf">CPF:</label>
-                <input type="text" name="cpf" id="cpf" placeholder="Digite seu CPF" required="required">
+                <input type="text" name="cpf" id="cpf" placeholder="Digite seu CPF" required="required" onchange="onCpf()">
+                <p id="cpf-atention"></p>
 
                 <label for="tipo">Tipo de Usuario:</label>
                 <select name="tipo" class= "select-geral" id="tipo">
@@ -44,7 +45,7 @@
                     <option value="instrutor">Instrutor</option>
                     <option value="aluno">Aluno</option>
                 </select>
-                <p id="atention"></p>
+                <p id="form-atention"></p>
 
             </div>
             <button class="btn-geral" nome="btnSubmit">Cadastrar</button>

@@ -103,20 +103,23 @@ form.addEventListener('submit', (event)=>{
 
     let exercicio = form.exercicio.value, cpf = form.cpf.value, serie = form.serie.value, repeticoes = form.repeticoes.value;
     uid = form.uid.value;
-    if(!uid){
+    console.log(uid);
+    if(uid == "null"){
         const dados = {
             cpf: cpf,
             exercicio: exercicio,
             serie: serie,
             repeticoes: repeticoes
         }
+        console.log("0" + dados);
         checkCpf(dados, uid);
-    } else if(uid){
+    } else {
             dados = {
             exercicio: exercicio,
             serie: serie,
             repeticoes: repeticoes
             }
+            console.log(dados);
         checkCpf(dados, uid);
     }
 })
@@ -133,26 +136,27 @@ document.getElementById("btn-novaSerie").onclick = function() {
 }
 
 //checa se o do aluno cpf existe e cadastra
-function checkCpf(dados, serie){
+function checkCpf(dados, uid){
 
     firebase.firestore().collection('user').where('cpf', '==', cpf.value).get().then((snapshot) =>{
         const user = snapshot.docs.map((doc) => doc.data());
         if(user.length > 0){
             console.log("cpf ja cadastrado");
 
-            if(uid == null){
+            if(uid == "null"){
                 console.log("puala");
                 firebase.firestore().collection('series').add(dados).then(() =>{
                     console.log("cadastrada");
                     window.location.reload();
                 }).catch(()=>{
-                    console.log("falhou");
+                    console.log("falhou1");
                 });
-            } else if(uid) {
-                firebase.firestore().collection('series').doc(serie.uid).update(dados).then(() =>{
+            } else {
+                firebase.firestore().collection('series').doc(uid).update(dados).then(() =>{
                     console.log("atualizada");
+                    window.location.reload();
                 }).catch(()=>{
-                    console.log("falhou");
+                    console.log("falhou2");
                 });
             }
 
@@ -170,7 +174,7 @@ function pegarDadoSerie(uid){
     firebase.firestore().collection("series").doc(uid).get().then(doc =>{
 
         if(doc.exists){
-            preencherSerie(doc.data());
+            preencherSerie(doc.data(), uid);
         }else{
             console.log("Não existe");
             window.location.href = "../instrutores.html";
@@ -198,14 +202,14 @@ function pegarDadoAula(uid){
     )
 }
 
-function preencherSerie(dados){
+function preencherSerie(dados, uid){
     document.getElementById("cpf").value = dados.cpf;
     document.getElementById("cpf").disabled = true;
 
     document.getElementById("exercicio").value = dados.exercicio;
     document.getElementById("repeticoes").value = dados.repeticoes;
     document.getElementById("serie").value = dados.serie;
-    document.getElementById("uid").value = dados.uid;
+    document.getElementById("uid").value = uid;
 
 }
 
