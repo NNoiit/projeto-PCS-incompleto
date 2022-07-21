@@ -29,24 +29,28 @@
             <h1><img src="./img/eventoS.png" alt="simbolo-aula"></h1>
 
             <div class="bloco-aulas">
-                <a id="btn-novaSerie"><button class="fab fixed bottom right">+</button></a>
+                <a id="btn-novaAula"><button class="fab fixed bottom right">+</button></a>
             </div>
 
-            <div class="box-container" style="display: none;">
-                <label for="aula">Digite um nome para a aula:</label>
-                <input name="aula" id="aula" placeholder="Aula" required="required">
+            <div id="div-form-aula" style="display: none;">
+                <form id="form-aula">
+                    <label for="aula">Digite um nome para a aula:</label>
+                    <input name="aula" id="aula" placeholder="Aula" required="required">
+                    <br>
+                    <label for="text">Digite uma breve descrição da Aula</label>
+                    <input type="text" nome="descriao-aula" id= "descricao-aula" placeholder="Descrção da Aula">
+                    <br>
+                    <label for="text">Digite a data da Aula</label>
+                    <input type="date" id="date">
+                    <br>
+                    <p id="form-atention"></p>
 
-                <label for="text">Digite uma breve descrição da Aula</label>
-                <input type="text" nome="descriao-aula" id= "descricao-aula" placeholder="Descrção da Aula">
-                <label for="text">Digite a data da Aula</label>
-                <input type="date">
-                <p id="msgEvento"></p>
-
-                <button  class="btn-geral" type="submit" id="btn-submit" >Cadastrar</button>
+                    <button  class="btn-geral" type="submit" id="btn-submit-evento" >Cadastrar</button>
+                </form>
             </div>
         </div>
     </div>
-    <script  src="./js/aula.js"></script>
+    <script  src="./js/series-aulas.js"></script>
     
 </body>
 </html>

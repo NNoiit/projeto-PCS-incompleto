@@ -15,8 +15,3 @@ function loading(text) {
 //document.getElementById("confirma").onclick = function(event){
     
 //}
-
-//Ações do botão de cancelamento
-function btnCancelar(){
-    location.reload();
-}

@@ -1,10 +1,29 @@
-//pegando o form de aula
+//pegando o form de serie
 const form = document.querySelector("[id=form-aula]");
 
-function mostraAula(aula){
+//passando para a pagina de cadastro de serie
+form.addEventListener('submit', (event)=>{
+
+    event.preventDefault();
+
+    let aula = form.aula.value, descAula = form.descricao-aula.value, date = form.date.value, uid = form.uid.value, lotacao =form.lotacao.value;
+    console.log(uid);
+    
+    const dados = {
+        aula: aula,
+        descAula: descAula,
+        date: date,
+        lotacao: lotacao,
+        inscritos: inscritos = {}
+    }
+    cadastraAula(dados, uid);
+})
+
+//FUNÇÕES PARA CRIAR AS SERIES/AULA NO .BLOCO-SERIE
+function mostraAula(aula, tipo, cpf){
 
     aula.forEach(aula => {
-        console.log(aula);
+    
         let bloco = document.querySelector('.bloco-aula');
         let div = document.createElement('div');
         div.id = aula.uid;
@@ -16,89 +35,125 @@ function mostraAula(aula){
         let btnExcluir = document.createElement('button');
         btnExcluir.innerHTML = "Excluir";
         
+        let btnInscrever = document.createElement('button');
+        btnInscrever.innerHTML = "+";
 
         div.innerHTML = `
-            <h1>${aula.exercicio}</h1>
+            <h1>${aula.aula}</h1>
+            <h4>${aula.date}</h4>
+            <h2>${aula.lotacao}</h2>
         `
         bloco.append(div);
-        bloco.appendChild(btnAlterar);
-        bloco.appendChild(btnExcluir);
+        bloco.appendChild(btnInscrever);
+        if(tipo == "instrutor"){
+            bloco.appendChild(btnAlterar);
+            bloco.appendChild(btnExcluir);
+        }
 
         div.addEventListener('click', () =>{
             
         })
+
+        //
+        btnInscrever.addEventListener('click', () =>{
+            inscreverAula(cpf);
+        })
+
         //especificando o evento de click para o botão editar
         btnAlterar.addEventListener('click', () =>{
-            window.location.href = "../cadastro-aula.html?uid=" + aula.uid;
+            document.getElementsByClassName("bloco-aula")[0].style.display = 'none';
+
+            document.getElementById("div-form-aula").style.display = 'block';
+
+            pegarDadoAula(aula.uid);
         });
 
         //Exclui a div-usuario
         btnExcluir.addEventListener('click', (event) =>{
             event.stopPropagation();
 
-            confirmDelet(aula);
+            confirmDelet(aula, "aula");
         });
     });
 
 }
 
-//passando para a pagina de cadastro de aula
-form.addEventListener('submit', (event)=>{
+//Função para cadastra aula
+function cadastraAula(dados, uid){
 
-    event.preventDefault();
-    let exercicio = form.exercicio.value, cpf = form.cpf.value, aula = form.aula.value, repeticoes = form.repeticoes.value;
-    const dados = {
-        cpf: cpf,
-        exercicio: exercicio,
-        aula: aula,
-        repeticoes: repeticoes
+    if(uid == "null"){
+
+        firebase.firestore().collection('series').add(dados).then(() =>{
+            console.log("cadastrada");
+            window.location.reload();
+        }).catch(()=>{
+            console.log("falhou1");
+        });
+    } else {
+        firebase.firestore().collection('series').doc(uid).update(dados).then(() =>{
+            console.log("atualizada");
+            window.location.reload();
+        }).catch(()=>{
+            console.log("falhou2");
+        });
     }
-    checkCpf(dados);
-})
-
-//////////////////////////////////////////////////////////////////
-
-//funções para controle da pagina
-document.getElementById("btn-novaaula").onclick = function() {
-    let divaula = document.getElementsByClassName("bloco-aula");
-    divaula[0].style.display = 'none';
-
-    let divPrincipal = document.getElementById("div-form-aula");
-    divPrincipal.style.display = 'block';
 }
 
-function checkCpf(dados){
+//Função para pegar os dado no db apartir do uid
+function pegarDadoAula(uid){
 
-    firebase.firestore().collection('user').where('cpf', '==', cpf.value).get().then((snapshot) =>{
-        const user = snapshot.docs.map((doc) => doc.data());
-        if(user.length > 0){
-            console.log("cpf ja cadastrado");
-            firebase.firestore().collection('aulas').add(dados).then(() =>{
-                console.log("cadastrada");
-                window.location.href = "../aula.html";
-            }).catch(()=>{
-                console.log("falhou");
-            });
+    firebase.firestore().collection("aula").doc(uid).get().then(doc =>{
+
+        if(doc.exists){
+            preencherAula(doc.data());
         }else{
-            console.log("cpf não cadastrado");
-            return true;
+            console.log("Não existe");
+            window.location.href = "../instrutores.html";
         }
-    })
-
+    }).catch(error =>{
+            console.log("erro" , error);
+    }
+    )
 }
 
-//função para deletar a aula selecionada
-function removerAluno(aula){
-    firebase.firestore().collection('user').doc(aula.uid).delete().then(()=>{
+//
+function inscreverAula(cpf){}
+
+//função para preenchimendo do form no caso de alteração
+function preencherAula(dados, uid){
+    document.getElementById("aula").value = dados.aula;
+    document.getElementById("descAula").value = dados.descAula;
+    document.getElementById("date").value = dados.date;
+    document.getElementById("lotacao").value = dados.lotacao;
+    document.getElementById("uid").value = uid;
+}
+
+//funções para deletar a aula selecionada
+function removerAula(aula){
+    firebase.firestore().collection('aulas').doc(aula.uid).delete().then(()=>{
         document.getElementById(aula.uid).remove();
     })
+    window.location.reload();
 }
 
 //confirma o delete
-function confirmDelet(aula){
-    const showRemover = confirm(`Deseja excluir o ${aula.nome}`);
+function confirmDelet(dado, tipo){
+    const showRemover = confirm(`Deseja excluir o ${dado.nome}`);
 
     if(showRemover){
-        removerAluno(aula);
+        if(tipo == "serie")
+        removerSerie(dado);
+
+        if(tipo == "aula")
+        removerAula(dado);
     }
+}
+
+//Evento do botão que leva para o form de adicionar no bd
+document.getElementById("btn-novaAula").onclick = function() {
+    let divSerie = document.getElementsByClassName("bloco-aulas");
+    divSerie[0].style.display = 'none';
+
+    let divPrincipal = document.getElementById("div-form-aula");
+    divPrincipal.style.display = 'block';
 }
