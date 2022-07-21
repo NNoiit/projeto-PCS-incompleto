@@ -1,13 +1,14 @@
-//pegando o form de serie
-const form = document.querySelector("[id=form-aula]");
+//pegando o formAula de aula
+const formAula = document.querySelector("[id=form-aula]");
 
-//passando para a pagina de cadastro de serie
-form.addEventListener('submit', (event)=>{
+//passando para a pagina de cadastro de aula
+formAula.addEventListener('submit', (event)=>{
 
     event.preventDefault();
 
-    let aula = form.aula.value, descAula = form.descricao-aula.value, date = form.date.value, uid = form.uid.value, lotacao =form.lotacao.value;
-    console.log(uid);
+    let aula = formAula.aula.value, descAula = formAula.descricao-aula.value, date = formAula.date.value, lotacao = formAula.lotacao.value;
+    uid = formAula.uid.value;
+    
     
     const dados = {
         aula: aula,
@@ -19,8 +20,8 @@ form.addEventListener('submit', (event)=>{
     cadastraAula(dados, uid);
 })
 
-//FUNÇÕES PARA CRIAR AS SERIES/AULA NO .BLOCO-SERIE
-function mostraAula(aula, tipo, cpf){
+//FUNÇÕES PARA CRIAR AS aula NO .BLOCO-aula
+function mostraAula(aula, tipo){
 
     aula.forEach(aula => {
     
@@ -44,10 +45,12 @@ function mostraAula(aula, tipo, cpf){
             <h2>${aula.lotacao}</h2>
         `
         bloco.append(div);
-        bloco.appendChild(btnInscrever);
+        
         if(tipo == "instrutor"){
             bloco.appendChild(btnAlterar);
             bloco.appendChild(btnExcluir);
+        } else if(tipo == "aluno"){
+            bloco.appendChild(btnInscrever);
         }
 
         div.addEventListener('click', () =>{
@@ -72,7 +75,7 @@ function mostraAula(aula, tipo, cpf){
         btnExcluir.addEventListener('click', (event) =>{
             event.stopPropagation();
 
-            confirmDelet(aula, "aula");
+            confirmDelet(aula);
         });
     });
 
@@ -80,17 +83,16 @@ function mostraAula(aula, tipo, cpf){
 
 //Função para cadastra aula
 function cadastraAula(dados, uid){
-
     if(uid == "null"){
 
-        firebase.firestore().collection('series').add(dados).then(() =>{
+        firebase.firestore().collection('aulas').add(dados).then(() =>{
             console.log("cadastrada");
             window.location.reload();
         }).catch(()=>{
             console.log("falhou1");
         });
     } else {
-        firebase.firestore().collection('series').doc(uid).update(dados).then(() =>{
+        firebase.firestore().collection('aulas').doc(uid).update(dados).then(() =>{
             console.log("atualizada");
             window.location.reload();
         }).catch(()=>{
@@ -101,11 +103,10 @@ function cadastraAula(dados, uid){
 
 //Função para pegar os dado no db apartir do uid
 function pegarDadoAula(uid){
-
-    firebase.firestore().collection("aula").doc(uid).get().then(doc =>{
+    firebase.firestore().collection("aulas").doc(uid).get().then(doc =>{
 
         if(doc.exists){
-            preencherAula(doc.data());
+            preencherAula(doc.data(), uid);
         }else{
             console.log("Não existe");
             window.location.href = "../instrutores.html";
@@ -119,7 +120,7 @@ function pegarDadoAula(uid){
 //
 function inscreverAula(cpf){}
 
-//função para preenchimendo do form no caso de alteração
+//função para preenchimendo do formAula no caso de alteração
 function preencherAula(dados, uid){
     document.getElementById("aula").value = dados.aula;
     document.getElementById("descAula").value = dados.descAula;
@@ -137,22 +138,19 @@ function removerAula(aula){
 }
 
 //confirma o delete
-function confirmDelet(dado, tipo){
-    const showRemover = confirm(`Deseja excluir o ${dado.nome}`);
+function confirmDelet(dado){
+    console.log(dado);
+    const showRemover = confirm(`Deseja excluir o ${dado.aula}`);
 
     if(showRemover){
-        if(tipo == "serie")
-        removerSerie(dado);
-
-        if(tipo == "aula")
         removerAula(dado);
     }
 }
 
-//Evento do botão que leva para o form de adicionar no bd
+//Evento do botão que leva para o formAula de adicionar no bd
 document.getElementById("btn-novaAula").onclick = function() {
-    let divSerie = document.getElementsByClassName("bloco-aulas");
-    divSerie[0].style.display = 'none';
+    let divaula = document.getElementsByClassName("bloco-aula");
+    divaula[0].style.display = 'none';
 
     let divPrincipal = document.getElementById("div-form-aula");
     divPrincipal.style.display = 'block';

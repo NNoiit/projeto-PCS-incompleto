@@ -30,26 +30,26 @@
     <div id="container">
         <div class="fichas">
             <h1><img src="./img/treinoS.png" alt="simbolo-serie"></h1>
-            <div class="bloco-serie=">
+            <div class="bloco-serie">
         
                 <a id="btn-novaSerie"><button class="fab fixed bottom right">+</button></a>
             </div>
             <div id="div-form-serie">
                 <form id = "form-serie">
-                    <label for="matricula">Digite o CPF do Aluno:</label>
+                    <label for="cpf">Digite o CPF do Aluno:</label>
                     <input type="cpf" name="cpf" id="cpf" placeholder="CPF do Aluno" required="required">
                     
                     <label for="serie">Digite o nome da sua serie:</label>
                     <input type="text" name="serie" id="serie" placeholder="Serie" required="required">
-
+                    
                     <label for="exercicio">Digite o nome do exercicio:</label>
                     <input type="exercicio" name="exercicio" id="exercicio" placeholder="Exercicio" required="required">
                     
                     <label for="repeticoes">Digite o numero de repetições:</label>
                     <input id="repeticoes" nome="repeticoes" placeholder="Repetições"></input>
-
+                    
                     <label for="uid"></label>
-                    <input id="uid" nome="uid" style="display: none;" value="null"></input>
+                    <input id="uid" nome="uid" style="display: none;" value="null" disabled></input>
                     <p id="msgSerie"></p>
                 
                     <input type="submit" id="btn-submit-evento" value="Confirmar Serie">
@@ -57,7 +57,7 @@
                 </form>
             </div>
         </div>
-        <script  src="./js/series-aulas.js"></script>
+        <script  src="./js/serie.js"></script>
         <script src="./js/series-instrutor.js"></script>
     
 </body>

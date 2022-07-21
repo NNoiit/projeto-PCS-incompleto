@@ -1,6 +1,7 @@
 firebase.firestore().collection("series").get().then((snapshot) =>{
     const serie = snapshot.docs.map((doc) => ({...doc.data(), uid: doc.id}));
-    mostraSerie(serie, "instrutor");
+    let instrutor = "instrutor";
+    mostraSerie(serie, instrutor);
 
 }).catch(error =>{
         console.log("erro" , error);
@@ -8,8 +9,8 @@ firebase.firestore().collection("series").get().then((snapshot) =>{
 
 firebase.firestore().collection("aulas").get().then((snapshot) =>{
     const aula = snapshot.docs.map((doc) => ({...doc.data(), uid: doc.id}));
-    
-    mostraAula(aula, "instrutor");
+    let instrutor = "instrutor";
+    mostraAula(aula, instrutor);
 }).catch(error =>{
         console.log("erro" , error);
 })

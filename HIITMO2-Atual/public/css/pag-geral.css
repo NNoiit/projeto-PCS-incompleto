@@ -168,4 +168,9 @@ button.btn-medio:hover{
     text-align: center;
 }
 
+/*config de imputs*/
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+}
 

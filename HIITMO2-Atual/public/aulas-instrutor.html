@@ -28,7 +28,7 @@
         <div class="fichas">
             <h1><img src="./img/eventoS.png" alt="simbolo-aula"></h1>
 
-            <div class="bloco-aulas">
+            <div class="bloco-aula">
                 <a id="btn-novaAula"><button class="fab fixed bottom right">+</button></a>
             </div>
 
@@ -36,13 +36,19 @@
                 <form id="form-aula">
                     <label for="aula">Digite um nome para a aula:</label>
                     <input name="aula" id="aula" placeholder="Aula" required="required">
-                    <br>
+                    
                     <label for="text">Digite uma breve descrição da Aula</label>
-                    <input type="text" nome="descriao-aula" id= "descricao-aula" placeholder="Descrção da Aula">
-                    <br>
+                    <input type="text" nome="descAula" id= "descAula" placeholder="Descrção da Aula">
+                    
                     <label for="text">Digite a data da Aula</label>
                     <input type="date" id="date">
-                    <br>
+                    
+                    <label for="lotacao">Digite uma locatçao maxima a aula:</label>
+                    <input type="number" name="lotacao" id="lotacao" placeholder="Lotacão" required="required">
+                    
+                    <label for="uid"></label>
+                    <input id="uid" nome="uid" style="display: none;" value="null" disabled></input>
+                    
                     <p id="form-atention"></p>
 
                     <button  class="btn-geral" type="submit" id="btn-submit-evento" >Cadastrar</button>
@@ -50,7 +56,9 @@
             </div>
         </div>
     </div>
-    <script  src="./js/series-aulas.js"></script>
+
+    <script src="./js/aula.js"></script>
+    <script src="./js/series-instrutor.js"></script>
     
 </body>
 </html>
