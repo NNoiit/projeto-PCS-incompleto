@@ -44,7 +44,10 @@ function mostraAula(aula){
         //criando os botões
         let btnInscrever= document.createElement('button');
         btnInscrever.innerHTML = "Inscrever";
-        btnInscrever.classList.add('btn-geral');
+        div.classList.add('bloco-cont');
+        btnExcluir.classList.add('btn-medio');
+        btnAlterar.classList.add('btn-medio');
+        
         
         
 

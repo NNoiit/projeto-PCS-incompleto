@@ -25,6 +25,10 @@ function mostraInstrutores(instrutor){
         let btnExcluir = document.createElement('button');
         btnExcluir.innerHTML = "Excluir";
 
+        div.classList.add('bloco-cont');
+        btnExcluir.classList.add('btn-medio');
+        btnAlterar.classList.add('btn-medio');
+
         div.innerHTML = `
             <h1>${instrutor.nome}</h1>
             <h4>${instrutor.email}</h4>

@@ -14,6 +14,7 @@ function mostraSerie(serie){
         `
         bloco.append(div);
         bloco.appendChild(btnInscrever);
+        btnInscrever.classList.add('btn-geral');
 
         div.addEventListener('click', () =>{
             console.log("click da div funfando");

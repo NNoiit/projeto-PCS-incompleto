@@ -60,7 +60,8 @@ function mostrarInscritas(aula){
             let btnInscrever= document.createElement('button');
             btnInscrever.innerHTML = "Inscrever";
         
-        
+            
+            btnInscrever.classList.add('btn-geral');
 
             div.innerHTML = `
                 <h1>${aula.aula}</h1>

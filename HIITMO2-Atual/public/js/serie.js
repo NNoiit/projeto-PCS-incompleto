@@ -47,6 +47,10 @@ function mostraSerie(serie, tipo){
 
         let btnExcluir = document.createElement('button');
         btnExcluir.innerHTML = "Excluir";
+
+        div.classList.add('bloco-cont');
+        btnExcluir.classList.add('btn-medio');
+        btnAlterar.classList.add('btn-medio');
         
 
         div.innerHTML = `

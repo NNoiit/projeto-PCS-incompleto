@@ -15,6 +15,9 @@ function mostraAlunos(aluno){
         let bloco = document.querySelector('#alunos');
     
         let div = document.createElement('div');
+        div.classList.add('bloco-cont');
+        btnExcluir.classList.add('btn-medio');
+        btnAlterar.classList.add('btn-medio');
         div.id = aluno.uid;
 
         //criando os botões
