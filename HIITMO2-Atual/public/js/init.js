@@ -16,7 +16,7 @@ function pegarInfoDB(email){
         tipoUser(users[0].tipo);
 
         //alterando o valor da variavel global para obter o cpf do usuario
-        cpfGlobal = users[0].cpf;
+        cpfGlobal = users[0].email;
 
     }).catch(error =>{
             console.log("erro" , error);
@@ -44,6 +44,7 @@ function mostraAula(aula){
         //criando os botões
         let btnInscrever= document.createElement('button');
         btnInscrever.innerHTML = "Inscrever";
+        btnInscrever.classList.add('btn-geral');
         
         
 
