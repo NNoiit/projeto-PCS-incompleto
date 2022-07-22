@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio</title>
+</head>
+        <!--Importações do firebase-->
+        <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-app-compat.js"> </script>
+        <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-auth-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore-compat.js"></script>
+        <!--|||||||||||||||||||||||||-->
+        <script  src="./js/configFirebase.js"></script>
+        <script src="./js/weather.js"></script>
+
+        <link rel="stylesheet" href="./css/style.css">
+        <link rel="stylesheet" href="./css/pag-geral.css">
+
+
+    <body onblur="">
+        <div id="barra-nav">
+        <ul>
+            <li><a href="inicio.html"><img src="./img/icone-barra.png" alt="logo"></a>
+            <li><a href="inicio.html">Inicio</a>
+            <li><a href="serie-aluno.html">Series</a>
+            <li><a href="aulas-aluno.html">Aulas</a>
+            <li><a href="perfil.html">Perfil</a>
+        </ul>
+        </div>
+        <div class="total">
+
+            <div class="card">
+                <div class="weather">
+                    <h2 class="city">Tempo no Rio de Janeiro</h2>
+                    <h1 class="temp">30°C</h1>
+                    <div class="flex">
+                        <img src="https://openweathermap.org/img/wn/04n.png" alt="" class="icon" />
+                        <div class="description">Nuvem</div>
+                    </div>
+                    <div class="humidity">Humidade: 60%</div>
+                    <div class="wind">Velocidade do vento: 6.2 km/h</div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

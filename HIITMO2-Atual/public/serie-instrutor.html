@@ -44,6 +44,9 @@
                     
                     <label for="exercicio">Digite o nome do exercicio:</label>
                     <input type="exercicio" name="exercicio" id="exercicio" placeholder="Exercicio" required="required">
+
+                    <label for="qtd">Digite a quantidade de vezes:</label>
+                    <input type="qtd" name="qtd" id="qtd" placeholder="Qtd" required="required">
                     
                     <label for="repeticoes">Digite o numero de repetições:</label>
                     <input id="repeticoes" nome="repeticoes" placeholder="Repetições"></input>
@@ -53,13 +56,30 @@
                     <p id="msgSerie"></p>
                 
                     <input type="submit" id="btn-submit-evento" value="Confirmar Serie">
-                    <p id="msgSerie"></p>
+                    <input type="submit" onclick="seriev.salvar()" id="btn-add" value="Adicionar">
+
+
+
                 </form>
+                <div class="tabela">
+                    <table>
+                        <thead>
+                            <th>Exercicios</th>
+                            <th>Quantidade</th>
+                            <th>Repetiçoes</th>
+                        </thead>
+                        <tbody id="tbody">
+
+                        </tbody>
+                    </table>
+
+                </div>
             </div>
         </div>
         <script  src="./js/serie.js"></script>
+        <script  src="./js/adicionar-serie.js"></script>
         <script src="./js/series-instrutor.js"></script>
-    
+    </div>
 </body>
 
 </html>

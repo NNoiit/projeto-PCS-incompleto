@@ -44,6 +44,7 @@ function navUser(tipo){
                     <li><img src="./img/icone-barra.png" alt="logo">
                     <li><a href="serie-aluno.html">Series</a>
                     <li><a href="aulas-aluno.html">Aulas</a>
+                    <li><a href="inicio.html">Inicio</a>
                 </div>
             </ul>
         `
