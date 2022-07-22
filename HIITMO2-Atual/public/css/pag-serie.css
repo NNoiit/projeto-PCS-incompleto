@@ -30,3 +30,14 @@ textarea{
     resize: none;
 
 }
+.tabela{
+    margin-top: 15px;
+}
+table{
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    width: 100%;
+}
+table th{
+    background-color: rgba(123, 122, 122, 0.98);
+}

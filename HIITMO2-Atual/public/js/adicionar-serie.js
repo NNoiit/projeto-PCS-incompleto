@@ -1,6 +1,7 @@
 class adicionarSerie{
     constructor() {
         this.arraySerie = [];
+        this.id=1;
     }
 
     salvar(){
@@ -30,16 +31,19 @@ class adicionarSerie{
 
             let imgExcluir = document.createElement('img');
             imgExcluir.src = 'img/excluir.png';
-            imgExcluir.setAttribute("onclick","seriev.excluir("+this.arraySerie[i]+")");
+            imgExcluir.setAttribute("onclick","serieA.excluir("+this.arraySerie[i].id+")");
+
 
             td_acoes.appendChild(imgExcluir);
         }
     }
     adicionar(serie){
         this.arraySerie.push(serie);
+        this.id++;
     }
     lerDados(){
         let serie = {}
+        serie.id=this.id;
         serie.exercicio = document.getElementById('exercicio').value;
         serie.quantidade = document.getElementById('qtd').value;
         serie.repeticoes = document.getElementById('repeticoes').value;
@@ -70,9 +74,11 @@ class adicionarSerie{
         document.getElementById('repeticoes').value='';
     }
     excluir(id){
+        let tbody = document.getElementById('tbody');
         for(let i = 0; i<this.arraySerie.length; i++){
             if (this.arraySerie[i].id==id){
                 this.arraySerie.splice(i, 1);
+                tbody.deleteRow(i);
             }
         }
 
@@ -80,4 +86,4 @@ class adicionarSerie{
 
 
 }
-var seriev = new adicionarSerie();
+var serieA = new adicionarSerie();

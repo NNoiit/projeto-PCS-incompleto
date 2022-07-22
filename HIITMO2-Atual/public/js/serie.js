@@ -6,7 +6,7 @@ form.addEventListener('submit', (event)=>{
 
     event.preventDefault();
 
-    let exercicio = form.exercicio.value, cpf = form.cpf.value, serie = form.serie.value, repeticoes = form.repeticoes.value;
+    let exercicio = form.exercicio.value, qtd = form.qtd.value, cpf = form.cpf.value, serie = form.serie.value, repeticoes = form.repeticoes.value;
     uid = form.uid.value;
 
 
@@ -14,6 +14,7 @@ form.addEventListener('submit', (event)=>{
         const dados = {
             cpf: cpf,
             exercicio: exercicio,
+            qtd: qtd,
             serie: serie,
             repeticoes: repeticoes
         }
@@ -22,6 +23,7 @@ form.addEventListener('submit', (event)=>{
     } else {
             const dados = {
             exercicio: exercicio,
+            qtd: qtd,
             serie: serie,
             repeticoes: repeticoes
             }
@@ -135,6 +137,7 @@ function preencherSerie(dados, uid){
     document.getElementById("cpf").disabled = true;
 
     document.getElementById("exercicio").value = dados.exercicio;
+    document.getElementById("qtd").value = dados.quantidade;
     document.getElementById("repeticoes").value = dados.repeticoes;
     document.getElementById("serie").value = dados.serie;
     document.getElementById("uid").value = uid;
