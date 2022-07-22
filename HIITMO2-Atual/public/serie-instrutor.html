@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="./css/pag-serie.css">
     
 
-    <title>Serie</title>
+    <title>Série</title>
 </head>
 <body onblur="">
     <div id="barra-nav">
@@ -39,16 +39,16 @@
                     <label for="cpf">Digite o CPF do Aluno:</label>
                     <input type="cpf" name="cpf" id="cpf" placeholder="CPF do Aluno" required="required">
                     
-                    <label for="serie">Digite o nome da sua serie:</label>
+                    <label for="serie">Digite o nome da sua série:</label>
                     <input type="text" name="serie" id="serie" placeholder="Serie" required="required">
                     
-                    <label for="exercicio">Digite o nome do exercicio:</label>
+                    <label for="exercicio">Digite o nome do exercício:</label>
                     <input type="exercicio" name="exercicio" id="exercicio" placeholder="Exercicio" required="required">
 
                     <label for="qtd">Digite a quantidade de vezes:</label>
                     <input type="qtd" name="qtd" id="qtd" placeholder="Qtd" required="required">
                     
-                    <label for="repeticoes">Digite o numero de repetições:</label>
+                    <label for="repeticoes">Digite o número de repetições:</label>
                     <input id="repeticoes" nome="repeticoes" placeholder="Repetições"></input>
                     
                     <label for="uid"></label>
@@ -56,17 +56,18 @@
                     <p id="msgSerie"></p>
                 
                     <input type="submit" id="btn-submit-evento" value="Confirmar Serie">
-                    <input type="submit" onclick="seriev.salvar()" id="btn-add" value="Adicionar">
+                    <input type="submit" onclick="serieA.salvar()" id="btn-add" value="Adicionar">
 
 
 
                 </form>
                 <div class="tabela">
-                    <table>
+                    <table border="1">
                         <thead>
                             <th>Exercicios</th>
                             <th>Quantidade</th>
-                            <th>Repetiçoes</th>
+                            <th>Repetições</th>
+                            <th>Ação</th>
                         </thead>
                         <tbody id="tbody">
 
