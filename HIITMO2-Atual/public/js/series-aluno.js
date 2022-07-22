@@ -11,7 +11,6 @@ function pegarInfoDB(email){
         const users = snapshot.docs.map(doc => doc.data());
 
         infoSerie(users[0]);
-        infoAula(users[0]);
         
     }).catch(error =>{
             console.log("erro" , error);
@@ -31,13 +30,3 @@ function infoSerie(cpf){
     })
 }
 
-function infoAula(cpf){
-    firebase.firestore().collection("aulas").where('cpf', '==', cpf.cpf).get().then((snapshot) =>{
-        const aulas = snapshot.docs.map((doc) => ({...doc.data(), uid: doc.id}));
-    
-        mostraAula(aulas);
-        
-    }).catch(error =>{
-            console.log("erro" , error);
-    })
-}

@@ -1,6 +1,6 @@
 firebase.auth().onAuthStateChanged(function(user){
     if(user){
-        window.location.href = "../perfil.html";
+        window.location.href = "../inicio.html";
     }
 })
 
@@ -13,8 +13,7 @@ function login() {
     firebase.auth().signInWithEmailAndPassword(email.value, password.value).then((userCredential) => {
         // logando se ele existe
         const user = userCredential.user;
-        console.log("logou");
-        window.location.href = "../perfil.html";
+        window.location.href = "../inicio.html";
         // ...
     })
     .catch((error) => {
@@ -34,17 +33,6 @@ function erroLogin(error) {
         return "Senha incorreta";
     }
     return error.message;
-}
-
-//função de recuperação de senha
-function recuperarSenha(){
-    firebase.auth().sendPasswordResetEmail(email.value).then(() => {
-        // Email sent.
-        alert("Email enviado");
-    }).catch(error => {
-        // An error happened.
-        alert(erroLogin(error));
-    });
 }
 
 

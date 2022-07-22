@@ -8,6 +8,7 @@ function logout(){
 
 firebase.auth().onAuthStateChanged(user =>{
     if(user){
+        console.log(user);
       pegarInfoDB(user);  
     }
 });
@@ -17,8 +18,7 @@ function pegarInfoDB(email){
 
     firebase.firestore().collection("user").where("email", "==", email.email).get().then(snapshot =>{
         const users = snapshot.docs.map(doc => doc.data());
-        console.log(users);
-        console.log(users[0].tipo);
+       
         preenchercampos(users[0]);
     }).catch(error =>{
             console.log("erro" , error);
@@ -35,4 +35,18 @@ function preenchercampos(users){
 
     //chama a função para criar a barra de menu
     tipoUser(users.tipo);
+}
+
+//função de recuperação de senha
+function recuperarSenha(){
+
+    firebase.auth().onAuthStateChanged(user =>{
+        if(user){
+            firebase.auth().sendPasswordResetEmail(user.value).then(() => {
+                alert("Email enviado");
+            }).catch(error => {
+                alert(erroLogin(error));
+            });  
+        }
+    });
 }
