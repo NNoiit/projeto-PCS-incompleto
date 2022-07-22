@@ -52,10 +52,10 @@ function mostraSerie(serie, tipo){
         `
         bloco.append(div);
 
-        if(tipo == "instrutor"){
-            bloco.appendChild(btnAlterar);
-            bloco.appendChild(btnExcluir);
-        }
+    
+        bloco.appendChild(btnAlterar);
+        bloco.appendChild(btnExcluir);
+        
 
         div.addEventListener('click', () =>{
             console.log("click da div funfando");
