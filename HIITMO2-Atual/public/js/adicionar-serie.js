@@ -49,13 +49,13 @@ class adicionarSerie{
     validaCampos(serie){
         let msg = '';
         if (serie.exercicio==''){
-            msg += 'Campo exercicio esta vazio';
+            msg += 'Campo exercicio esta vazio\n';
         }
         if (serie.quantidade==''){
-            msg += 'Campo quantidade esta vazio';
+            msg += 'Campo quantidade esta vazio\n';
         }
         if (serie.repeticoes==''){
-            msg += 'Campo repetiçoes esta vazio';
+            msg += 'Campo repetiçoes esta vazio\n';
         }
         if (msg!=''){
             alert(msg);
