@@ -35,16 +35,5 @@ function erroLogin(error) {
     return error.message;
 }
 
-//função de recuperação de senha
-function recuperarSenha(){
-    firebase.auth().sendPasswordResetEmail(email.value).then(() => {
-        // Email sent.
-        alert("Email enviado");
-    }).catch(error => {
-        // An error happened.
-        alert(erroLogin(error));
-    });
-}
-
 
  

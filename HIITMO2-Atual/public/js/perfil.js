@@ -36,3 +36,17 @@ function preenchercampos(users){
     //chama a função para criar a barra de menu
     tipoUser(users.tipo);
 }
+
+//função de recuperação de senha
+function recuperarSenha(){
+
+    firebase.auth().onAuthStateChanged(user =>{
+        if(user){
+            firebase.auth().sendPasswordResetEmail(user.value).then(() => {
+                alert("Email enviado");
+            }).catch(error => {
+                alert(erroLogin(error));
+            });  
+        }
+    });
+}
