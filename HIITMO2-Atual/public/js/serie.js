@@ -8,7 +8,8 @@ form.addEventListener('submit', (event)=>{
 
     let exercicio = form.exercicio.value, cpf = form.cpf.value, serie = form.serie.value, repeticoes = form.repeticoes.value;
     uid = form.uid.value;
-    console.log(uid);
+
+
     if(uid == "null"){
         const dados = {
             cpf: cpf,
@@ -19,7 +20,7 @@ form.addEventListener('submit', (event)=>{
         
         cadastraSerie(dados, uid);
     } else {
-            dados = {
+            const dados = {
             exercicio: exercicio,
             serie: serie,
             repeticoes: repeticoes
@@ -47,7 +48,7 @@ function mostraSerie(serie, tipo){
         
 
         div.innerHTML = `
-            <h1>${serie.exercicio}</h1>
+            <h1>${serie.serie}</h1>
         `
         bloco.append(div);
 
@@ -57,8 +58,8 @@ function mostraSerie(serie, tipo){
         }
 
         div.addEventListener('click', () =>{
-            
-        })
+            console.log("click da div funfando");
+        });
         //especificando o evento de click para o botão editar
         btnAlterar.addEventListener('click', () =>{
             document.getElementsByClassName("bloco-serie")[0].style.display = 'none';
@@ -72,7 +73,7 @@ function mostraSerie(serie, tipo){
         btnExcluir.addEventListener('click', (event) =>{
             event.stopPropagation();
 
-            confirmDelet(serie, "serie");
+            confirmDelet(serie);
         });
     });
 
@@ -143,19 +144,18 @@ function preencherSerie(dados, uid){
 function removerSerie(serie){
     firebase.firestore().collection('series').doc(serie.uid).delete().then(()=>{
         document.getElementById(serie.uid).remove();
+        window.location.reload();
     })
 }
 
 //confirma o delete
-function confirmDelet(dado, tipo){
-    const showRemover = confirm(`Deseja excluir o ${dado.nome}`);
+function confirmDelet(dado){
+    console.log(dado);
+    const showRemover = confirm(`Deseja excluir o ${dado.serie}`);
 
     if(showRemover){
-        if(tipo == "serie")
         removerSerie(dado);
 
-        if(tipo == "aula")
-        removerAula(dado);
     }
 }
 

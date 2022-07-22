@@ -13,13 +13,18 @@
 
     <script  src="./js/configFirebase.js"></script>
     <script src="./js/aluno.js"></script>
+    <script src="./js/weather.js"></script>
 
     <link rel="stylesheet" href="./css/pag-geral.css">
+    <link rel="stylesheet" href="./css/style.css">
+
+
 
     <title>Alunos</title>
 
 </head>
 <body>
+
     <div id="barra-nav">
         <ul>
             <li><img src="./img/icone-barra.png" alt="logo">
@@ -28,10 +33,24 @@
             <li><a href="./perfil.html">Perfil</a>
         </ul>
     </div>
+    <div class="total">
     <div id="container">
         <h1><img src="./img/pessoas-icone.png" alt="simbolo-isntrutores"></h1>
-        <div id="alunos">
-        </div>
+        <div id="alunos"></div>
         <a href="cadastro.html"><button class="fab fixed bottom right">+</button></a>
+    </div>
+    <div class="card">
+        <div class="weather">
+            <h2 class="city">Tempo no Rio de Janeiro</h2>
+            <h1 class="temp">30°C</h1>
+            <div class="flex">
+                <img src="https://openweathermap.org/img/wn/04n.png" alt="" class="icon" />
+                <div class="description">Nuvem</div>
+            </div>
+            <div class="humidity">Humidade: 60%</div>
+            <div class="wind">Velocidade do vento: 6.2 km/h</div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

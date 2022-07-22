@@ -26,8 +26,9 @@ function infoSerie(cpf){
         const serie = snapshot.docs.map((doc) => ({...doc.data(), uid: doc.id}));
         let btnEscondido = document.getElementsById("btn-novaSerie");
     btnEscondido.style.display = 'none';
+    let aluno = "aluno";
 
-    mostraSerie(serie);
+    mostraSerie(serie, aluno);
         
     }).catch(error =>{
             console.log("erro" , error);
@@ -39,8 +40,9 @@ function infoAula(cpf){
         const aulas = snapshot.docs.map((doc) => ({...doc.data(), uid: doc.id}));
         let btnEscondido = document.getElementsById("btn-novaSerie");
     btnEscondido.style.display = 'none';
+    let aluno = "aluno";
 
-    mostraAula(aulas);
+    mostraAula(aulas, aluno);
         
     }).catch(error =>{
             console.log("erro" , error);
