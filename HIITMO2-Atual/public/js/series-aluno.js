@@ -9,8 +9,6 @@ function pegarInfoDB(email){
 
     firebase.firestore().collection("user").where("email", "==", email.email).get().then(snapshot =>{
         const users = snapshot.docs.map(doc => doc.data());
-        console.log(users);
-        console.log(users[0].tipo);
 
         infoSerie(users[0]);
         infoAula(users[0]);
@@ -22,13 +20,11 @@ function pegarInfoDB(email){
 }
 
 function infoSerie(cpf){
+
     firebase.firestore().collection("series").where('cpf', '==', cpf.cpf).get().then((snapshot) =>{
         const serie = snapshot.docs.map((doc) => ({...doc.data(), uid: doc.id}));
-        let btnEscondido = document.getElementsById("btn-novaSerie");
-    btnEscondido.style.display = 'none';
-    let aluno = "aluno";
 
-    mostraSerie(serie, aluno);
+        mostraSerie(serie);
         
     }).catch(error =>{
             console.log("erro" , error);
@@ -38,11 +34,8 @@ function infoSerie(cpf){
 function infoAula(cpf){
     firebase.firestore().collection("aulas").where('cpf', '==', cpf.cpf).get().then((snapshot) =>{
         const aulas = snapshot.docs.map((doc) => ({...doc.data(), uid: doc.id}));
-        let btnEscondido = document.getElementsById("btn-novaSerie");
-    btnEscondido.style.display = 'none';
-    let aluno = "aluno";
-
-    mostraAula(aulas, aluno);
+    
+        mostraAula(aulas);
         
     }).catch(error =>{
             console.log("erro" , error);

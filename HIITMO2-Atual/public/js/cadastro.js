@@ -80,7 +80,7 @@ function formValid(){
     }
 
     const cpf = form.cpf.value;
-    if(!cpf || !onCpf()){
+    if(!cpf || onCpf()){
         return false;
     }
 
@@ -114,10 +114,11 @@ form.addEventListener('submit', (event)=>{
         };
         
         if(verificaCadastro()){
-
+            let add = false;
             firebase.auth().createUserWithEmailAndPassword(email, cpf).then(() =>{
                 alert("Usuario cadastrado com sucesso!");
 
+                add = true;
                 //Resdireciona para pagina de instrutores
                 if(tipo == 'instrutor'){
                     window.location.href = "../instrutores.html";
@@ -133,11 +134,13 @@ form.addEventListener('submit', (event)=>{
             });
 
             //Cadastrando no firestore
-            firebase.firestore().collection('user').add(dados).then(() =>{
-                console.log("adicionada");
-            }).catch(()=>{
-                console.log("falhou");
-            });
+            if(add){
+                firebase.firestore().collection('user').add(dados).then(() =>{
+                    console.log("adicionada");
+                }).catch(()=>{
+                    console.log("falhou");
+                });
+            }
 
         } else{
             firebase.firestore().collection('user').doc(pegaEmailUrl()).update(dados).then(() =>{
@@ -148,4 +151,3 @@ form.addEventListener('submit', (event)=>{
         }
     }
 })
-    

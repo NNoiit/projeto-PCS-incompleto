@@ -36,8 +36,7 @@ function mostraAula(aula, tipo){
         let btnExcluir = document.createElement('button');
         btnExcluir.innerHTML = "Excluir";
         
-        let btnInscrever = document.createElement('button');
-        btnInscrever.innerHTML = "+";
+        
 
         div.innerHTML = `
             <h1>${aula.aula}</h1>
@@ -45,13 +44,9 @@ function mostraAula(aula, tipo){
             <h2>${aula.lotacao}</h2>
         `
         bloco.append(div);
+        bloco.appendChild(btnAlterar);
+        bloco.appendChild(btnExcluir);
         
-        if(tipo == "instrutor"){
-            bloco.appendChild(btnAlterar);
-            bloco.appendChild(btnExcluir);
-        } else if(tipo == "aluno"){
-            bloco.appendChild(btnInscrever);
-        }
 
         div.addEventListener('click', () =>{
             
