@@ -15,6 +15,7 @@ formAula.addEventListener('submit', (event)=>{
         descAula: descAula,
         date: date,
         lotacao: lotacao,
+        numeroInscritos: 0,
         inscritos: inscritos = {}
     }
     cadastraAula(dados, uid);

@@ -1,6 +1,6 @@
 firebase.auth().onAuthStateChanged(function(user){
     if(user){
-        window.location.href = "../perfil.html";
+        window.location.href = "../inicio.html";
     }
 })
 
@@ -13,8 +13,7 @@ function login() {
     firebase.auth().signInWithEmailAndPassword(email.value, password.value).then((userCredential) => {
         // logando se ele existe
         const user = userCredential.user;
-        console.log("logou");
-        window.location.href = "../perfil.html";
+        window.location.href = "../inicio.html";
         // ...
     })
     .catch((error) => {

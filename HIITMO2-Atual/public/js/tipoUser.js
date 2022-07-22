@@ -1,6 +1,5 @@
 function tipoUser(tipo){
     navUser(tipo);
-    dbUser(tipo);
 }
 
 
@@ -14,8 +13,10 @@ function navUser(tipo){
             <ul>
                 <div class="gerente">
                     <li><img src="./img/icone-barra.png" alt="logo">
+                    <li><a href="inicio.html">Inicio</a>
                     <li><a href="instrutores.html">Instrutores</a>
                     <li><a href="aluno.html">Alunos</a>
+                    <li><a href="perfil.html">Perfil</a>
                 </div>
             </ul>
         `
@@ -28,8 +29,10 @@ function navUser(tipo){
             <ul>
                 <div class="instrutor">
                     <li><img src="./img/icone-barra.png" alt="logo">
+                    <li><a href="inicio.html">Inicio</a>
                     <li><a href="serie-instrutor.html">Series</a>
                     <li><a href="aulas-instrutor.html">Aulas</a>
+                    <li><a href="perfil.html">Perfil</a>
                 </div>
             </ul>
         `
@@ -42,9 +45,10 @@ function navUser(tipo){
             <ul>
                 <div class="aluno">
                     <li><img src="./img/icone-barra.png" alt="logo">
+                    <li><a href="inicio.html">Inicio</a>
                     <li><a href="serie-aluno.html">Series</a>
                     <li><a href="aulas-aluno.html">Aulas</a>
-                    <li><a href="inicio.html">Inicio</a>
+                    <li><a href="perfil.html">Perfil</a>
                 </div>
             </ul>
         `

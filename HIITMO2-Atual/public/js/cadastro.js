@@ -134,7 +134,9 @@ form.addEventListener('submit', (event)=>{
             });
 
             //Cadastrando no firestore
-            if(add){
+            if(!add){
+                console.log("Cadastrando no firestore");
+                console.log(dados);
                 firebase.firestore().collection('user').add(dados).then(() =>{
                     console.log("adicionada");
                 }).catch(()=>{
