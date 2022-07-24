@@ -8,7 +8,6 @@ function logout(){
 
 firebase.auth().onAuthStateChanged(user =>{
     if(user){
-        console.log(user);
       pegarInfoDB(user);  
     }
 });
@@ -42,7 +41,7 @@ function recuperarSenha(){
 
     firebase.auth().onAuthStateChanged(user =>{
         if(user){
-            firebase.auth().sendPasswordResetEmail(user.value).then(() => {
+            firebase.auth().sendPasswordResetEmail(user.email).then(() => {
                 alert("Email enviado");
             }).catch(error => {
                 alert(erroLogin(error));

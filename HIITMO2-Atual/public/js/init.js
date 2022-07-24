@@ -45,8 +45,7 @@ function mostraAula(aula){
         let btnInscrever= document.createElement('button');
         btnInscrever.innerHTML = "Inscrever";
         div.classList.add('bloco-cont');
-        btnExcluir.classList.add('btn-medio');
-        btnAlterar.classList.add('btn-medio');
+        btnInscrever.classList.add('btn-geral');
         
         
         

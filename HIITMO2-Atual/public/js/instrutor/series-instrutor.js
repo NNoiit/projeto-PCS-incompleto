@@ -1,3 +1,13 @@
+//pegando as series no db
+firebase.firestore().collection("series").get().then((snapshot) =>{
+    const serie = snapshot.docs.map((doc) => ({...doc.data(), uid: doc.id}));
+    
+    mostraSerie(serie);
+
+}).catch(error =>{
+        console.log("erro" , error);
+})
+
 //pegando o form de serie
 const form = document.querySelector("[id=form-serie]");
 
@@ -56,9 +66,8 @@ function mostraSerie(serie, tipo){
         div.innerHTML = `
             <h1>${serie.serie}</h1>
         `
-        bloco.append(div);
 
-    
+        bloco.append(div);
         bloco.appendChild(btnAlterar);
         bloco.appendChild(btnExcluir);
         
@@ -66,6 +75,7 @@ function mostraSerie(serie, tipo){
         div.addEventListener('click', () =>{
             console.log("click da div funfando");
         });
+
         //especificando o evento de click para o botão editar
         btnAlterar.addEventListener('click', () =>{
             document.getElementsByClassName("bloco-serie")[0].style.display = 'none';
@@ -127,7 +137,7 @@ function pegarDadoSerie(uid){
             preencherSerie(doc.data(), uid);
         }else{
             console.log("Não existe");
-            window.location.href = "../instrutores.html";
+            window.location.href = "../../serie-instrutores.html";
         }
     }).catch(error =>{
             console.log("erro" , error);
