@@ -34,34 +34,24 @@ function infoSerie(cpf){
 function mostraSerie(serie){
 
     serie.forEach(serie => {
-    
         let bloco = document.querySelector('.bloco-serie');
+        let divDesc = document.createElement('div');
         let div = document.createElement('div');
+        div.classList.add('bloco-desc');
+        divDesc.classList.add('bloco-cont');
         div.id = serie.uid;
-        div.classList.add('bloco-cont');
 
         div.innerHTML = `
             <h1>${serie.serie}</h1>
             <h4>${serie.cpf}</h4>
         `
+        divDesc.innerHTML = `
+            <h3>${serie.exercicio}</h2>
+            <h3>${serie.qtd}</h2>
+            <h3>${serie.repeticoes}</h2>
+        `
         bloco.append(div);
-
-        div.addEventListener('click', () =>{
-            console.log("click da div funfando");
-            let bloco = document.querySelector('.bloco-cont');
-            let div = document.createElement('div');
-            div.className.add('bloco-desc');
-
-            div.innerHTML = `
-                <h1>${serie.serie}</h1>
-                <h4>${serie.cpf}</h4>
-                <h3>${serie.exercicio}</h2>
-                <h3>${serie.qtd}</h2>
-                <h3>${serie.repeticoes}</h2>
-            `
-            bloco.append(div);
-            
-        });
+        div.appendChild(divDesc);
 
     });
 

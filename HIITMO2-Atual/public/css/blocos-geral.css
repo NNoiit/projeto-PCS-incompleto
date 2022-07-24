@@ -37,8 +37,17 @@ textarea{
     border-radius: 9px;
     color:aliceblue;
 }
+.bloco-desc:hover .bloco-cont{
+    transition: 0.5s;
+    display: block;
+}
 
 .bloco-aula button{
     border-radius: 9px;
     background-color: rgba(32, 32, 32, 0.09);
+}
+
+.bloco-cont{
+    transition: 0.5s;
+    display: none;
 }
