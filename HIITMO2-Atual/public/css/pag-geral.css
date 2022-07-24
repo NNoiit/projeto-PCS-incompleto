@@ -4,7 +4,6 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
-    color: #323232;
     border: none;
 }
 
@@ -75,13 +74,6 @@ input{
     display: block;
     width: 100%;
 }
-
-
-/*tipo usuario
-.aluno, .instrutor, .gerenteG{
-    display: none;
-}*/
-
 
 /*botões*/
 .btn-geral{

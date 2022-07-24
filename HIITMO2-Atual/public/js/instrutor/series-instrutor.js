@@ -65,11 +65,12 @@ function mostraSerie(serie, tipo){
 
         div.innerHTML = `
             <h1>${serie.serie}</h1>
+            <h1>${serie.cpf}</h1>
         `
 
         bloco.append(div);
-        bloco.appendChild(btnAlterar);
-        bloco.appendChild(btnExcluir);
+        div.appendChild(btnAlterar);
+        div.appendChild(btnExcluir);
         
 
         div.addEventListener('click', () =>{

@@ -42,11 +42,12 @@ function mostrarInscritas(aula){
             let bloco = document.querySelector('.bloco-aula');
             let div = document.createElement('div');
             div.id = aula.uid;
+            div.classList.add('bloco-cont');
         
             //criando os botões
             let btnCancelar= document.createElement('button');
             btnCancelar.innerHTML = "Cancelar";
-            btnCancelar.classList.add('btn-geral');
+            btnCancelar.classList.add('btn-medio');
 
             div.innerHTML = `
                 <h1>${aula.aula}</h1>
@@ -54,7 +55,7 @@ function mostrarInscritas(aula){
                 <h2>${aula.lotacao}</h2>
                 `
             bloco.append(div);
-            bloco.appendChild(btnCancelar);
+            div.appendChild(btnCancelar);
         
 
             div.addEventListener('click', () =>{

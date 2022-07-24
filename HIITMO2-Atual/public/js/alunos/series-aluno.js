@@ -42,11 +42,25 @@ function mostraSerie(serie){
 
         div.innerHTML = `
             <h1>${serie.serie}</h1>
+            <h4>${serie.cpf}</h4>
         `
         bloco.append(div);
 
         div.addEventListener('click', () =>{
             console.log("click da div funfando");
+            let bloco = document.querySelector('.bloco-cont');
+            let div = document.createElement('div');
+            div.className.add('bloco-desc');
+
+            div.innerHTML = `
+                <h1>${serie.serie}</h1>
+                <h4>${serie.cpf}</h4>
+                <h3>${serie.exercicio}</h2>
+                <h3>${serie.qtd}</h2>
+                <h3>${serie.repeticoes}</h2>
+            `
+            bloco.append(div);
+            
         });
 
     });

@@ -45,7 +45,7 @@ function mostraAula(aula){
         let btnInscrever= document.createElement('button');
         btnInscrever.innerHTML = "Inscrever";
         div.classList.add('bloco-cont');
-        btnInscrever.classList.add('btn-geral');
+        btnInscrever.classList.add('btn-medio');
         
         
         
@@ -56,7 +56,7 @@ function mostraAula(aula){
             <h2>${aula.lotacao}</h2>
         `
         bloco.append(div);
-        bloco.appendChild(btnInscrever);
+        div.appendChild(btnInscrever);
         
 
         div.addEventListener('click', () =>{

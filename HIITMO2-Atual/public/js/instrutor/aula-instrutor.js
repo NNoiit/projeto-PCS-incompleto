@@ -59,8 +59,8 @@ function mostraAula(aula, tipo){
         `
         
         bloco.append(div);
-        bloco.appendChild(btnAlterar);
-        bloco.appendChild(btnExcluir);
+        div.appendChild(btnAlterar);
+        div.appendChild(btnExcluir);
         
         div.addEventListener('click', () =>{
             console.log(aula.uid);
