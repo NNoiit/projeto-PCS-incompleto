@@ -13,7 +13,7 @@ const form = document.querySelector("[id=form-serie]");
 
 //passando para a pagina de cadastro de serie
 function verificaSerie(series){
-    console.log(series.length);
+
     let cpf = form.cpf.value, serie = form.serie.value,
     uid = form.uid.value, exercicio, quantidade, repeticoes, ficha = {}, cont = 0;
 
@@ -33,12 +33,11 @@ function verificaSerie(series){
             }
             cadastraSerie(dados, uid);
         } else {
-                const dados = {
-                serie: serie,
-                ficha: ficha
-                }
-                
-                cadastraSerie(dados, uid);
+            const dados = {
+            serie: serie,
+            ficha: ficha
+            }
+            cadastraSerie(dados, uid);
         }
     } else{
         alert("Preencha todos os campos");
@@ -47,9 +46,10 @@ function verificaSerie(series){
 
 //mostra a series
 function mostraSerie(serie, tipo){
-    console.log(serie);
-    serie.forEach(serie => {
     
+    let linha;
+    serie.forEach(fichas => {
+
         let bloco = document.querySelector('.bloco-serie');
         let div = document.createElement('div');
         div.id = serie.uid;
@@ -67,18 +67,14 @@ function mostraSerie(serie, tipo){
         
 
         div.innerHTML = `
-            <h1>${serie.serie}</h1>
-            <h1>${serie.cpf}</h1>
+            <h1>${fichas.serie}</h1>
+            <h1>${fichas.cpf}</h1>
         `
-
+        
         bloco.append(div);
         div.appendChild(btnAlterar);
         div.appendChild(btnExcluir);
         
-
-        div.addEventListener('click', () =>{
-            console.log("click da div funfando");
-        });
 
         //especificando o evento de click para o botão editar
         btnAlterar.addEventListener('click', () =>{
@@ -95,6 +91,7 @@ function mostraSerie(serie, tipo){
 
             confirmDelet(serie);
         });
+    
     });
 
 }
@@ -152,12 +149,35 @@ function pegarDadoSerie(uid){
 function preencherSerie(dados, uid){
     document.getElementById("cpf").value = dados.cpf;
     document.getElementById("cpf").disabled = true;
-
-    document.getElementById("exercicio").value = dados.exercicio;
-    document.getElementById("quantidade").value = dados.quantidade;
-    document.getElementById("repeticoes").value = dados.repeticoes;
     document.getElementById("serie").value = dados.serie;
     document.getElementById("uid").value = uid;
+
+    let tbody = document.getElementById('tbody');
+    tbody.innerText='';
+    let info = dados.ficha;
+    let i = 0;
+
+        info.forEach(arraySerie =>{
+            let tr = tbody.insertRow();
+
+        let td_serie = tr.insertCell();
+        let td_quantidade = tr.insertCell();
+        let td_repeticao = tr.insertCell();
+        let td_acoes = tr.insertCell();
+
+        td_serie.innerText = arraySerie.exercicio;
+        td_quantidade.innerText = arraySerie.quantidade;
+        td_repeticao.innerText = arraySerie.repeticoes;
+
+        let imgExcluir = document.createElement('img');
+        imgExcluir.src = 'img/excluir.png';
+        imgExcluir.setAttribute("onclick","serieA.excluir("+delete arraySerie+")");
+        
+        td_acoes.appendChild(imgExcluir);
+        i++
+        })
+    
+
 
 }
 //funções para deletar a serie selecionada

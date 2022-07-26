@@ -46,8 +46,3 @@ textarea{
     border-radius: 9px;
     background-color: rgba(32, 32, 32, 0.09);
 }
-
-.bloco-cont{
-    transition: 0.5s;
-    display: none;
-}
