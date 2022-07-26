@@ -31,37 +31,8 @@ formAula.addEventListener('submit', (event)=>{
     cadastraAula(dados, uid);
 })
 
-//Função para checar a data
-function verificaData(){
-    let date = new Date();
-    let dataNova = form.data.value;
-    let dataAtual = date.toLocaleDateString();
-    let dataExistente;
-
-    firebase.firestore().collection("aulas").get().then((snapshot) =>{
-        const aula = snapshot.docs.map((doc) => ({...doc.data(), uid: doc.id}));
-        dataExistente = aula;
-    })
-
-    dataExistente.forEach(dataExist =>{
-        
-        if(dataNova == dataExist.data){
-            console.log("data já está vaga");
-        }
-    })
-
-    if(dataNova.isBefore(dataAtual)){
-        console.log("esta data já passou");
-    }
-    
-    
-    console.log(date.toLocaleDateString());
-}
-
 //FUNÇÕES PARA CRIAR AS aula NO .BLOCO-aula
 function mostraAula(aula, tipo){
-    let date = new Date();
-    console.log(date.toLocaleDateString());
 
     aula.forEach(aula => {
     
@@ -81,23 +52,19 @@ function mostraAula(aula, tipo){
         btnExcluir.classList.add('btn-medio');
         btnAlterar.classList.add('btn-medio');
 
-        let data = aula.date.split('-').reverse().join('/');
-
         div.innerHTML = `
             <h1>${aula.aula}</h1>
-            <h4>${data}</h4>
+            <h4>${aula.date}</h4>
             <h2>${aula.lotacao}</h2>
         `
+        
         bloco.append(div);
         div.appendChild(btnAlterar);
         div.appendChild(btnExcluir);
-
-        if(date.toLocaleDateString() > data){
-            div.style.background = "#808080";
-            div.removeChild(btnAlterar);
-            div.removeChild(btnExcluir);
-        }
         
+        div.addEventListener('click', () =>{
+            console.log(aula.uid);
+        })
 
         //especificando o evento de click para o botão editar
         btnAlterar.addEventListener('click', () =>{
