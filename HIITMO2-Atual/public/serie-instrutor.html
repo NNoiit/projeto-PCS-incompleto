@@ -12,8 +12,8 @@
     <!--|||||||||||||||||||||||||-->
     
     <script  src="./js/configFirebase.js"></script>
-    <link rel="stylesheet" href="./css/pag-geral.css">
     <link rel="stylesheet" href="./css/pag-serie.css">
+    <link rel="stylesheet" href="./css/pag-geral.css">
     <link rel="stylesheet" href="./css/blocos-geral.css">
     
 
@@ -43,29 +43,42 @@
                     
                     <label for="serie">Digite o nome da sua série:</label>
                     <input type="text" name="serie" id="serie" placeholder="Serie" required="required">
-                    
-                    <label for="exercicio">Digite o nome do exercício:</label>
-                    <input type="exercicio" name="exercicio" id="exercicio" placeholder="Exercicio" required="required">
+                        <div class="lado-lado">
+                            <label for="exercicio">Exercício:<input type="exercicio" name="exercicio" id="exercicio" placeholder="Exercicio" required="required"></label>
+                           
+                            <label for="repeticoes">Repetições:<input type="number" id="repeticoes" nome="repeticoes" placeholder="Repetições"></input></label>
+                            
 
-                    <label for="qtd">Digite a quantidade de vezes:</label>
-                    <input type="qtd" name="qtd" id="qtd" placeholder="Qtd" required="required">
-                    
-                    <label for="repeticoes">Digite o número de repetições:</label>
-                    <input id="repeticoes" nome="repeticoes" placeholder="Repetições"></input>
+                            <label for="quantidade"> Quantidade:<input type="number" name="quantidade" id="quantidade" placeholder="Quantidade" required="required"></label>
+                            
+                        </div>
                     
                     <label for="uid"></label>
                     <input id="uid" nome="uid" style="display: none;" value="null" disabled></input>
                     <p id="msgSerie"></p>
                 
-                    <input type="submit" id="btn-submit-evento" value="Confirmar Serie">
-                    <input type="submit" onclick="serieA.salvar()" id="btn-add" value="Adicionar">
-
-
-
+                    <input type="submit" id="btn-submit-evento" value="Confirmar Serie" onclick="salvarBD(serieA)">
                 </form>
+                <input type="submit" onclick="serieA.salvar()" id="btn-add" value="Adicionar">
+
+                <div class="tabela-serie">
+                    <table>
+                        <thead>
+                            <th>Exercicios</th>
+                            <th>Quantidade</th>
+                            <th>Repetições</th>
+                            <th>Ação</th>
+                        </thead>
+                        <tbody id="tbody">
+    
+                        </tbody>
+                    </table>
+    
+                </div>
             </div>
         </div>
         <script src="./js/instrutor/series-instrutor.js"></script>
+        <script src="./js/instrutor/adcionar-serie.js"></script>
     </div>
 </body>
 

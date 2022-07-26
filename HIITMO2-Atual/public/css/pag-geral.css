@@ -63,16 +63,13 @@ input{
     font-size: .9rem;
     margin-bottom: 15px;
     border-radius: 3px;
+    width: 100%;
+
 }
 
 input:focus{
     border-color: yellow;
     outline: none;
-}
-
-input{
-    display: block;
-    width: 100%;
 }
 
 /*botões*/

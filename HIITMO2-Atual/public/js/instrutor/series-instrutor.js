@@ -16,7 +16,7 @@ form.addEventListener('submit', (event)=>{
 
     event.preventDefault();
 
-    let exercicio = form.exercicio.value, qtd = form.qtd.value, cpf = form.cpf.value, serie = form.serie.value, repeticoes = form.repeticoes.value;
+    let exercicio = form.exercicio.value, quantidade = form.quantidade.value, cpf = form.cpf.value, serie = form.serie.value, repeticoes = form.repeticoes.value;
     uid = form.uid.value;
 
 
@@ -24,16 +24,15 @@ form.addEventListener('submit', (event)=>{
         const dados = {
             cpf: cpf,
             exercicio: exercicio,
-            qtd: qtd,
+            quantidade: quantidade,
             serie: serie,
             repeticoes: repeticoes
         }
-        
         cadastraSerie(dados, uid);
     } else {
             const dados = {
             exercicio: exercicio,
-            qtd: qtd,
+            quantidade: quantidade,
             serie: serie,
             repeticoes: repeticoes
             }
@@ -102,22 +101,22 @@ function cadastraSerie(dados, uid){
     firebase.firestore().collection('user').where('cpf', '==', cpf.value).get().then((snapshot) =>{
         const user = snapshot.docs.map((doc) => doc.data());
         if(user.length > 0){
-            console.log("cpf ja cadastrado");
+            console.log("cpf existe");
 
             if(uid == "null"){
 
                 firebase.firestore().collection('series').add(dados).then(() =>{
-                    console.log("cadastrada");
+                    console.log("nava serie cadastrada");
                     window.location.reload();
                 }).catch(()=>{
-                    console.log("falhou1");
+                    console.log("falha ao cadastrar nova serie");
                 });
             } else {
                 firebase.firestore().collection('series').doc(uid).update(dados).then(() =>{
-                    console.log("atualizada");
+                    console.log("seire atualizada");
                     window.location.reload();
                 }).catch(()=>{
-                    console.log("falhou2");
+                    console.log("falha ao atualizar serie");
                 });
             }
 
@@ -152,7 +151,7 @@ function preencherSerie(dados, uid){
     document.getElementById("cpf").disabled = true;
 
     document.getElementById("exercicio").value = dados.exercicio;
-    document.getElementById("qtd").value = dados.quantidade;
+    document.getElementById("quantidade").value = dados.quantidade;
     document.getElementById("repeticoes").value = dados.repeticoes;
     document.getElementById("serie").value = dados.serie;
     document.getElementById("uid").value = uid;
@@ -185,3 +184,5 @@ document.getElementById("btn-novaSerie").onclick = function() {
     let divPrincipal = document.getElementById("div-form-serie");
     divPrincipal.style.display = 'block';
 }
+
+//document.getElementById().onclick = cadastrarSerie();
