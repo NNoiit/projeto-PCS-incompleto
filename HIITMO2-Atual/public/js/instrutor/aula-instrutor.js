@@ -81,6 +81,7 @@ function mostraAula(aula, tipo){
         btnExcluir.classList.add('btn-medio');
         btnAlterar.classList.add('btn-medio');
 
+        //temporario
         let data = aula.date.split('-').reverse().join('/');
 
         div.innerHTML = `

@@ -9,7 +9,7 @@
     
 }
 .bloco-inicio{
-    float: left;
+    
     margin: 3px;
     border-radius: 10px;
     width: 100%;
@@ -23,7 +23,7 @@
 }
 
 .bloco-inicio button{
-    background-color: #323232;
+    background-color: black;
     border-radius: 10px;
     cursor: pointer;
 }
@@ -32,4 +32,8 @@
     margin: 3px;
     background-color: #323232;
     border-radius: 10px;
+}
+
+div#\#container{
+    text-align: -webkit-center;
 }

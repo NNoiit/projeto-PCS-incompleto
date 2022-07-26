@@ -39,7 +39,7 @@ textarea{
 }
 .bloco-desc:hover .bloco-cont{
     transition: 0.5s;
-    display: block;
+
 }
 
 .bloco-aula button{

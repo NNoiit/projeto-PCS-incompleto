@@ -15,13 +15,12 @@ const form = document.querySelector("[id=form-serie]");
 function verificaSerie(series){
 
     let cpf = form.cpf.value, serie = form.serie.value,
-    uid = form.uid.value, exercicio, quantidade, repeticoes, ficha = {}, cont = 0;
+    uid = form.uid.value, exercicio, quantidade, repeticoes, id, ficha = {}, cont = 0;
 
-    console.log(cpf, serie, uid);
     series.forEach(series => {
-        exercicio = series.exercicio, quantidade = series.quantidade, repeticoes = series.repeticoes;
+        exercicio = series.exercicio, quantidade = series.quantidade, repeticoes = series.repeticoes, id = series.id;
 
-        ficha[cont] = {exercicio, quantidade, repeticoes};
+        ficha[cont] = {exercicio, quantidade, repeticoes, id};
         cont++;
     })
     if(cpf != "" || serie != ""){
@@ -47,12 +46,12 @@ function verificaSerie(series){
 //mostra a series
 function mostraSerie(serie, tipo){
     
-    let linha;
     serie.forEach(fichas => {
+        console.log(fichas.uid);
 
         let bloco = document.querySelector('.bloco-serie');
         let div = document.createElement('div');
-        div.id = serie.uid;
+        div.id = fichas.uid;
         
         //criando os botões
         let btnAlterar = document.createElement('button');
@@ -82,14 +81,14 @@ function mostraSerie(serie, tipo){
 
             document.getElementById("div-form-serie").style.display = 'block';
 
-            pegarDadoSerie(serie.uid);
+            pegarDadoSerie(fichas.uid);
         });
 
         //Exclui a div-usuario
         btnExcluir.addEventListener('click', (event) =>{
             event.stopPropagation();
 
-            confirmDelet(serie);
+            confirmDelet(fichas);
         });
     
     });
@@ -137,7 +136,7 @@ function pegarDadoSerie(uid){
             preencherSerie(doc.data(), uid);
         }else{
             console.log("Não existe");
-            window.location.href = "../../serie-instrutores.html";
+            window.location.href = "../../serie-instrutor.html";
         }
     }).catch(error =>{
             console.log("erro" , error);
@@ -152,36 +151,22 @@ function preencherSerie(dados, uid){
     document.getElementById("serie").value = dados.serie;
     document.getElementById("uid").value = uid;
 
-    let tbody = document.getElementById('tbody');
-    tbody.innerText='';
-    let info = dados.ficha;
-    let i = 0;
-
-        info.forEach(arraySerie =>{
-            let tr = tbody.insertRow();
-
-        let td_serie = tr.insertCell();
-        let td_quantidade = tr.insertCell();
-        let td_repeticao = tr.insertCell();
-        let td_acoes = tr.insertCell();
-
-        td_serie.innerText = arraySerie.exercicio;
-        td_quantidade.innerText = arraySerie.quantidade;
-        td_repeticao.innerText = arraySerie.repeticoes;
-
-        let imgExcluir = document.createElement('img');
-        imgExcluir.src = 'img/excluir.png';
-        imgExcluir.setAttribute("onclick","serieA.excluir("+delete arraySerie+")");
-        
-        td_acoes.appendChild(imgExcluir);
-        i++
-        })
     
+    let serie = {};
+    let fichaSerie = dados.ficha;
 
-
+    for(let i in fichaSerie){
+        console.log("for 1");
+        serie[i] = {exercicio: fichaSerie[i].exercicio, quantidade: fichaSerie[i].quantidade, repeticoes: fichaSerie[i].repeticoes, id: fichaSerie[i].id};
+        console.log(serie[i]);
+        
+        serieA.adicionar(serie[i]);
+        serieA.listarTabela();
+    }
 }
 //funções para deletar a serie selecionada
 function removerSerie(serie){
+    
     firebase.firestore().collection('series').doc(serie.uid).delete().then(()=>{
         document.getElementById(serie.uid).remove();
         window.location.reload();

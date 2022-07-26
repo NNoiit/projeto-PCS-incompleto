@@ -23,3 +23,7 @@ table{
 table tr, th{
     border: hidden;
 }
+
+div.bloco-cont button.btn-medio{
+    background-color: black;
+}
