@@ -41,13 +41,17 @@ class adicionarSerie{
         this.arraySerie.push(serie);
         this.id++;
     }
+    pegarSeries(){
+        console.log(this.arraySerie);
+        return this.arraySerie;
+    }
+
     lerDados(){
         let serie = {}
         serie.id=this.id;
         serie.exercicio = document.getElementById('exercicio').value;
         serie.quantidade = document.getElementById('quantidade').value;
         serie.repeticoes = document.getElementById('repeticoes').value;
-
         return serie;
     }
     validaCampos(serie){

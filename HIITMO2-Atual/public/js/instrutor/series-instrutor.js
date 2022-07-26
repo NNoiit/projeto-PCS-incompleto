@@ -12,38 +12,42 @@ firebase.firestore().collection("series").get().then((snapshot) =>{
 const form = document.querySelector("[id=form-serie]");
 
 //passando para a pagina de cadastro de serie
-form.addEventListener('submit', (event)=>{
+function verificaSerie(series){
+    console.log(series.length);
+    let cpf = form.cpf.value, serie = form.serie.value,
+    uid = form.uid.value, exercicio, quantidade, repeticoes, ficha = {}, cont = 0;
 
-    event.preventDefault();
+    console.log(cpf, serie, uid);
+    series.forEach(series => {
+        exercicio = series.exercicio, quantidade = series.quantidade, repeticoes = series.repeticoes;
 
-    let exercicio = form.exercicio.value, quantidade = form.quantidade.value, cpf = form.cpf.value, serie = form.serie.value, repeticoes = form.repeticoes.value;
-    uid = form.uid.value;
-
-
-    if(uid == "null"){
-        const dados = {
-            cpf: cpf,
-            exercicio: exercicio,
-            quantidade: quantidade,
-            serie: serie,
-            repeticoes: repeticoes
-        }
-        cadastraSerie(dados, uid);
-    } else {
+        ficha[cont] = {exercicio, quantidade, repeticoes};
+        cont++;
+    })
+    if(cpf != "" || serie != ""){
+        if(uid == "null"){
             const dados = {
-            exercicio: exercicio,
-            quantidade: quantidade,
-            serie: serie,
-            repeticoes: repeticoes
+                cpf: cpf,
+                serie: serie,
+                ficha: ficha
             }
-            
             cadastraSerie(dados, uid);
+        } else {
+                const dados = {
+                serie: serie,
+                ficha: ficha
+                }
+                
+                cadastraSerie(dados, uid);
+        }
+    } else{
+        alert("Preencha todos os campos");
     }
-})
+}
 
 //mostra a series
 function mostraSerie(serie, tipo){
-
+    console.log(serie);
     serie.forEach(serie => {
     
         let bloco = document.querySelector('.bloco-serie');
@@ -97,11 +101,10 @@ function mostraSerie(serie, tipo){
 
 //checa se o cpf existe e cadastra serie
 function cadastraSerie(dados, uid){
-
+    
     firebase.firestore().collection('user').where('cpf', '==', cpf.value).get().then((snapshot) =>{
         const user = snapshot.docs.map((doc) => doc.data());
         if(user.length > 0){
-            console.log("cpf existe");
 
             if(uid == "null"){
 
