@@ -4,12 +4,12 @@
     align-items: center;
     margin: 0;
 }
-h1.temp {
+h4.temp {
     padding: 1em;
-    margin-bottom: 1em;
     align-items: center;
     color: white;
     text-align: center;
+    margin-right: 2em;
 }
 .description {
     text-transform: capitalize;
@@ -18,12 +18,13 @@ h1.temp {
 }
 .humidity{
     color: white;
-    margin-right: 12em;
+    margin-right: 7em;
 
 }
 .wind{
     color: white;
-    margin-right: 5em;
+    margin-right: 6em;
+    margin-bottom: 1em;
 }
 .weather{
     visibility: visible;
@@ -36,8 +37,11 @@ h1.temp {
 }
 .card {
 
-    background: #323232;
-    color: white;
+    background: #4b4b4b;
+
+    width: 300px;
+    height: 300px;
+    color: black;
     padding: 2em;
     border-radius: 30px;
    
@@ -53,9 +57,11 @@ h1.temp {
     margin-top: 0.5%;
 }
 
-.city {
+h3.city {
+    margin-right: 2em;
     align-items: center;
-    margin-top: 2em;
+    margin-top: 3px;
+    text-align: center;
     color: white;
 }
 

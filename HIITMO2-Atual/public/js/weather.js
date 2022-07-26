@@ -24,14 +24,14 @@ let weather = {
         const { temp, humidity } = data.main;
         const { speed } = data.wind;
         console.log(name,icon,description,temp,humidity,speed);
-        document.querySelector(".city").innerHTML="Tempo em " + name;
+        document.querySelector(".city").innerHTML= name;
         document.querySelector(".icon").src="https://openweathermap.org/img/wn/" + icon + ".png";
         document.querySelector(".description").innerText = description;
         document.querySelector(".temp").innerText = temp + "°C";
         document.querySelector(".humidity").innerText =
-            "Humidade: " + humidity + "%";
+            "Umidade: " + humidity + "%";
         document.querySelector(".wind").innerText =
-            "Velocidade do vento: " + speed + " km/h";
+            "Vento: " + speed + " km/h";
         document.querySelector(".weather").classList.remove("carregando");
     }
 };
