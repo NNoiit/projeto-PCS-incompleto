@@ -39,15 +39,17 @@
                     <label for="aula">Digite um nome para a aula:</label>
                     <input name="aula" id="aula" placeholder="Aula" required="required">
                     
-                    <label for="text">Digite a data da Aula</label>
-                    <input type="date" id="date">
+                    <label for="text">Digite a data da Aula: <input type="date" id="date" onchange="verificaDateCampo()"></label>
+
+                    <label for="hInicio">Inicio: <input type="time" id="hInicio" onchange="verificaDateCampo()"></label>
+
+                    <label for="hFim">Fim: <input type="time" id="hFim"  onchange="verificaDateCampo()"></label>
                     
-                    <label for="lotacao">Digite uma locatçao maxima a aula:</label>
-                    <input type="number" name="lotacao" id="lotacao" placeholder="Lotacão" required="required">
+                    <label for="lotacao">Digite uma locatçao maxima a aula:<input type="number" name="lotacao" id="lotacao" placeholder="Lotacão" required="required"></label>
 
                     <label for="text">Digite uma breve descrição da Aula</label>
-                    <input type="text" nome="descAula" id= "descAula" placeholder="Descrção da Aula">
-                    
+                    <textarea nome="descAula" id= "descAula" placeholder="Descrição da Aula"></textarea>
+
                     <label for="uid"></label>
                     <input id="uid" nome="uid" style="display: none;" value="null" disabled></input>
                     
@@ -55,6 +57,9 @@
 
                     <button  class="btn-geral" type="submit" id="btn-submit-evento" >Cadastrar</button>
                 </form>
+                <br>
+                <button  class="btn-geral" type="submit" id="btn-submit-evento" onclick="verificaDate()">Verificar disponibilidade</button>
+                
             </div>
         </div>
     </div>

@@ -16,46 +16,90 @@ formAula.addEventListener('submit', (event)=>{
 
     event.preventDefault();
 
-    let aula = formAula.aula.value, descAula = formAula.descricao-aula.value, date = formAula.date.value, lotacao = formAula.lotacao.value;
-    uid = formAula.uid.value;
-    
-    
-    const dados = {
-        aula: aula,
-        descAula: descAula,
-        date: date,
-        lotacao: lotacao,
-        numeroInscritos: 0,
-        inscritos: inscritos = {}
+    if(verificaDate()){
+        let aula = formAula.aula.value, descAula = formAula.descricao-aula.value, date = formAula.date.value, lotacao = formAula.lotacao.value, hInicio = formAula.hInicio.value, hFim = formAula.hFim.value, uid = formAula.uid.value;
+        uid = formAula.uid.value;
+
+        let data = date.split('-').reverse().join('/');
+        
+        
+        const dados = {
+            aula: aula,
+            descAula: descAula,
+            date: data,
+            hInicio: hInicio,
+            hFim: hFim,
+            lotacao: lotacao,
+            numeroInscritos: 0,
+            inscritos: inscritos = {}
+        }
+        cadastraAula(dados, uid);
     }
-    cadastraAula(dados, uid);
 })
 
 //Função para checar a data
-function verificaData(){
+function verificaDate(){
     let date = new Date();
-    let dataNova = form.data.value;
-    let dataAtual = date.toLocaleDateString();
-    let dataExistente;
+    let dataNova = document.getElementById('date').value;
+    let hInicio = document.getElementById('hInicio').value;
+    let hFim = document.getElementById('hFim').value;
+    let dataExist;
+
+    console.log(dataNova);
+    console.log(hInicio);
+    console.log(hFim);
 
     firebase.firestore().collection("aulas").get().then((snapshot) =>{
         const aula = snapshot.docs.map((doc) => ({...doc.data(), uid: doc.id}));
-        dataExistente = aula;
+        console.log(aula);
+        dataExist = aula;
     })
 
-    dataExistente.forEach(dataExist =>{
-        
-        if(dataNova == dataExist.data){
-            console.log("data já está vaga");
+    
+    for(let i in dataExist){
+        if(dataNova == dataExist[i].data){
+            if(hInicio == dataExist[i].hInicio && hFim == dataExist[i].hFim || hFim > dataExist[i].hInicio && hFim < dataExist[i].hFim || hInicio > dataExist[i].hInicio && hInicio < dataExist[i].hFim){
+                alert("Aula já cadastrada para esse horario");
+                document.getElementById('date').value = "";
+                document.getElementById('hInicio').value = "";
+                document.getElementById('hFim').value = "";
+                return false;
+            }
         }
-    })
-
-    if(dataNova.isBefore(dataAtual)){
-        console.log("esta data já passou");
     }
+
+    return true;
+}
+
+function verificaDateCampo(){
+    let date = new Date();
+    let dataNova = document.getElementById('date').value.split('-').reverse().join('/');
+    let hInicio = document.getElementById('hInicio').value;
+    let hFim = document.getElementById('hFim').value;
+    let dataAtual = date.toLocaleDateString();
+
+    console.log(dataAtual);
+    console.log(dataNova);
     
-    
-    console.log(date.toLocaleDateString());
+    console.log(hInicio);
+    console.log(hFim);
+
+    if( hInicio != "" && hFim != "" && hFim <= hInicio){
+        alert("Horário inválido");
+        document.getElementById('hFim').value = "";
+        document.getElementById('hFim').focus();
+
+    }
+
+    if(dataNova != "" && dataNova == dataAtual){
+        console.log("Data invalida, mesmo dia");
+        document.getElementById('date').value = "";
+    } else if(dataNova != "" && dataNova < dataAtual){
+        console.log("Data invalida, data passou");
+        document.getElementById('date').value = "";
+    }else if(dataNova != "" && dataNova > dataAtual){
+        console.log("Data valida");
+    }
 }
 
 //FUNÇÕES PARA CRIAR AS aula NO .BLOCO-aula
@@ -81,19 +125,23 @@ function mostraAula(aula, tipo){
         btnExcluir.classList.add('btn-medio');
         btnAlterar.classList.add('btn-medio');
 
-        //temporario
-        let data = aula.date.split('-').reverse().join('/');
+        let i, cont = 0;
+        for(i in aula.inscritos){
+            cont++;
+        }
 
         div.innerHTML = `
             <h1>${aula.aula}</h1>
-            <h4>${data}</h4>
-            <h2>${aula.lotacao}</h2>
-        `
+            <h4>${aula.date}</h4>
+            <h4>${aula.hInicio} - ${aula.hFim}</h4>
+            <h3>${cont} / ${aula.lotacao}</h2>
+        `;
+    
         bloco.append(div);
         div.appendChild(btnAlterar);
         div.appendChild(btnExcluir);
 
-        if(date.toLocaleDateString() > data){
+        if(date.toLocaleDateString() > aula.date){
             div.style.background = "#808080";
             div.removeChild(btnAlterar);
             div.removeChild(btnExcluir);
@@ -159,8 +207,10 @@ function pegarDadoAula(uid){
 //função para preenchimendo do formAula no caso de alteração
 function preencherAula(dados, uid){
     document.getElementById("aula").value = dados.aula;
+    document.getElementById("hInicio").value = dados.hInicio;
+    document.getElementById("hFim").value = dados.hFim;
     document.getElementById("descAula").value = dados.descAula;
-    document.getElementById("date").value = dados.date;
+    document.getElementById("date").value = dados.date.split('/').reverse().join('-');
     document.getElementById("lotacao").value = dados.lotacao;
     document.getElementById("uid").value = uid;
 }

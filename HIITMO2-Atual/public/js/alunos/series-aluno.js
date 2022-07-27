@@ -37,21 +37,48 @@ function mostraSerie(serie){
         let bloco = document.querySelector('.bloco-serie');
         let divDesc = document.createElement('div');
         let div = document.createElement('div');
+        let tableSerie = document.createElement('div');
         div.classList.add('bloco-desc');
-        divDesc.classList.add('bloco-cont');
+        divDesc.classList.add('bloco-cont-desc');
         div.id = serie.uid;
 
+        console.log(serie);
+        console.log(serie.ficha);
+        console.log(serie.ficha.exercicio);
+        
         div.innerHTML = `
             <h1>${serie.serie}</h1>
             <h4>${serie.cpf}</h4>
         `
-        divDesc.innerHTML = `
-            <h3>${serie.exercicio}</h2>
-            <h3>${serie.qtd}</h2>
-            <h3>${serie.repeticoes}</h2>
-        `
         bloco.append(div);
         div.appendChild(divDesc);
+
+        
+        ///////////////Tabela///////////////
+        for (let i in serie.ficha) {
+            tableSerie.innerHTML+=`
+
+                <table border="3">
+                <thead>
+                <tr>
+                    <th>Exercicio</th>
+                    <th>Quantidade</th>
+                    <th>Repetições</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>${serie.ficha[i].exercicio}</td>
+                    <td>${serie.ficha[i].quantidade}</td>
+                    <td>${serie.ficha[i].repeticoes}</td>
+                </tr>
+                </table>
+                `;
+
+            bloco.append(tableSerie);
+        }
+
+        ////////////
 
     });
 

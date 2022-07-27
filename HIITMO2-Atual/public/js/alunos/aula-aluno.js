@@ -37,6 +37,7 @@ function mostrarInscritas(aula){
 
     aula.forEach(aula => {
         inscri = aula.inscritos;
+        console.log(aula);
 
         if(inscri[cont] == cpfGlobal.email){
             let bloco = document.querySelector('.bloco-aula');

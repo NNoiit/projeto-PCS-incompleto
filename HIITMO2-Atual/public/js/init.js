@@ -46,24 +46,22 @@ function mostraAula(aula){
         btnInscrever.innerHTML = "Inscrever";
         div.classList.add('bloco-cont');
         btnInscrever.classList.add('btn-medio');
-        
-        
-        
+
+        let i, cont = 0;
+        for(i in aula.inscritos){
+            cont++;
+        }
 
         div.innerHTML = `
             <h1>${aula.aula}</h1>
             <h4>${aula.date}</h4>
-            <h2>${aula.lotacao}</h2>
-        `
+            <h4>${aula.hInicio} - ${aula.hFim}</h4>
+            <h3>${cont} / ${aula.lotacao}</h2>
+        `;
+
         bloco.append(div);
         div.appendChild(btnInscrever);
-        
 
-        div.addEventListener('click', () =>{
-            console.log("div clicada");
-        })
-
-        //
         btnInscrever.addEventListener('click', () =>{
             inscreverAula(aula);
         })
@@ -85,8 +83,6 @@ function inscreverAula(aula){
         }
         if(checkCPF == false){
             inscricao[numeroInscritos] = cpfGlobal;
-
-            console.log(inscricao);
 
             const dadosIn = {
                 aula: aula.aula,
