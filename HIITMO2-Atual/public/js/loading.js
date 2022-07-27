@@ -1,4 +1,4 @@
-/*let msg = "Carregando...";
+/*let msg = "Carregando";
 
 loading(msg);
 

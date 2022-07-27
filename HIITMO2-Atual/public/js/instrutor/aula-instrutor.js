@@ -16,13 +16,14 @@ formAula.addEventListener('submit', (event)=>{
 
     event.preventDefault();
 
+    //verificando se a data está correta e atribuindo as variaveis os valores do form
     if(verificaDate()){
         let aula = formAula.aula.value, descAula = formAula.descricao-aula.value, date = formAula.date.value, lotacao = formAula.lotacao.value, hInicio = formAula.hInicio.value, hFim = formAula.hFim.value, uid = formAula.uid.value;
         uid = formAula.uid.value;
 
+        //ajustando o formato da data para salvar no BD
         let data = date.split('-').reverse().join('/');
-        
-        
+
         const dados = {
             aula: aula,
             descAula: descAula,
@@ -39,6 +40,8 @@ formAula.addEventListener('submit', (event)=>{
 
 //Função para checar a data
 function verificaDate(){
+
+    //declarando as variaveis e atribuindo valores // date é para checar a data atual
     let date = new Date();
     let dataNova = document.getElementById('date').value;
     let hInicio = document.getElementById('hInicio').value;
@@ -47,11 +50,10 @@ function verificaDate(){
 
     firebase.firestore().collection("aulas").get().then((snapshot) =>{
         const aula = snapshot.docs.map((doc) => ({...doc.data(), uid: doc.id}));
-        console.log(aula);
         dataExist = aula;
     })
 
-    
+    //checando se a tada está preenchida
     for(let i in dataExist){
         if(dataNova == dataExist[i].data){
             if(hInicio == dataExist[i].hInicio && hFim == dataExist[i].hFim || hFim > dataExist[i].hInicio && hFim < dataExist[i].hFim || hInicio > dataExist[i].hInicio && hInicio < dataExist[i].hFim){
@@ -67,19 +69,17 @@ function verificaDate(){
     return true;
 }
 
+//função para verificar os campos de data
 function verificaDateCampo(){
+
+    //declarando as variaveis e pegando os valores do HTML
     let date = new Date();
     let dataNova = document.getElementById('date').value.split('-').reverse().join('/');
     let hInicio = document.getElementById('hInicio').value;
     let hFim = document.getElementById('hFim').value;
     let dataAtual = date.toLocaleDateString();
 
-    console.log(dataAtual);
-    console.log(dataNova);
-    
-    console.log(hInicio);
-    console.log(hFim);
-
+    //checando se o horario está no formato correto
     if( hInicio != "" && hFim != "" && hFim <= hInicio){
         alert("Horário inválido");
         document.getElementById('hFim').value = "";
@@ -87,6 +87,7 @@ function verificaDateCampo(){
 
     }
 
+    //testando se a data esta no formato correto
     if(dataNova != "" && dataNova == dataAtual){
         console.log("Data invalida, mesmo dia");
         document.getElementById('date').value = "";
@@ -165,6 +166,8 @@ function mostraAula(aula, tipo){
 
 //Função para cadastra aula
 function cadastraAula(dados, uid){
+
+    //verificando se é um cadastro de nova aoula ou uma atualização
     if(uid == "null"){
 
         firebase.firestore().collection('aulas').add(dados).then(() =>{
@@ -187,6 +190,7 @@ function cadastraAula(dados, uid){
 function pegarDadoAula(uid){
     firebase.firestore().collection("aulas").doc(uid).get().then(doc =>{
 
+        //verificando se o documento pesquisado no BD pelo uid Existe
         if(doc.exists){
             preencherAula(doc.data(), uid);
         }else{
