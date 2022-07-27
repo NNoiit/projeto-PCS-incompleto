@@ -40,7 +40,11 @@ textarea{
 
 }
 
-.bloco-aula button{
-    border-radius: 9px;
-    background-color: rgba(32, 32, 32, 0.09);
+.bloco-cont button{
+    background-color: black;
+    border-radius: 10px;
+    cursor: pointer;
 }
+
+
+

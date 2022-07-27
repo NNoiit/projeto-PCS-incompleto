@@ -1,6 +1,5 @@
 /*config apitempo*/
 .flex {
-    display: flex;
     align-items: center;
     margin: 0;
 }
@@ -36,25 +35,15 @@ h4.temp {
     align-items: center;
 }
 .card {
-
-    background: #4b4b4b;
-
-    width: 300px;
-    height: 300px;
+    background: linear-gradient(45deg, black, transparent);
     color: black;
-    padding: 2em;
-    border-radius: 30px;
-   
-    max-width: 420px;
-    flex-direction: column;
-    display: inline-block;
+    border-radius: 21px;
 }
 .total{
     text-align: center;
-    float: left;
-    width: 30%;
-    padding-left: 5px;
+    width: 100%;
     margin-top: 0.5%;
+    max-width: 450px;
 }
 
 h3.city {

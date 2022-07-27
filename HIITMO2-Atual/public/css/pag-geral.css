@@ -52,7 +52,8 @@ label{
     background-color: rgba(32, 32, 32, 0.09);
     border-radius: 30px;
     padding: 15px;
-    width: 500px;
+    width: 100%;
+    max-width: 500px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -163,5 +164,12 @@ button.btn-medio:hover{
 input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
         -webkit-appearance: none;
         margin: 0;
+}
+
+/*blocos de ususarios*/
+div#container div#instrutores , div#alunos{
+    max-width: 500px;
+    display: inline-block;
+    width: 100%;
 }
 

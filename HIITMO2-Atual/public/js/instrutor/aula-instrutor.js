@@ -45,10 +45,6 @@ function verificaDate(){
     let hFim = document.getElementById('hFim').value;
     let dataExist;
 
-    console.log(dataNova);
-    console.log(hInicio);
-    console.log(hFim);
-
     firebase.firestore().collection("aulas").get().then((snapshot) =>{
         const aula = snapshot.docs.map((doc) => ({...doc.data(), uid: doc.id}));
         console.log(aula);

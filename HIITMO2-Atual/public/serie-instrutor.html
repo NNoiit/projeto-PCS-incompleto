@@ -57,9 +57,10 @@
                     <input id="uid" nome="uid" style="display: none;" value="null" disabled></input>
                     <p id="msgSerie"></p>
                 
-                    <input type="submit" id="btn-submit-evento" value="Confirmar Serie" onclick="verificaSerie(serieA.pegarSeries())">
+                    <button  class="btn-medio" type="submit" id="btn-submit-evento" onclick="verificaSerie(serieA.pegarSeries())">Cadastrar Serie</button>
+
+                    <button  class="btn-medio" type="button" id="btn-submit-evento" onclick="serieA.salvar()">Adicionar a linha</button>
                 </form>
-                <input type="submit" onclick="serieA.salvar()" id="btn-add" value="Adicionar">
 
                 <div class="tabela-serie">
                     <table>

@@ -36,8 +36,10 @@ firebase.firestore().collection("aulas").get().then((snapshot) =>{
 function mostraAula(aula){
 
     aula.forEach(aula => {
-    
+        let date = new Date();
         let bloco = document.querySelector('.bloco-inicio');
+        let blocoLateral = document.querySelector('.bloco-inicio-lateral');
+        let aulaEn = document.createElement('p');
         let div = document.createElement('div');
         div.id = aula.uid;
         
@@ -46,7 +48,8 @@ function mostraAula(aula){
         btnInscrever.innerHTML = "Inscrever";
         div.classList.add('bloco-cont');
         btnInscrever.classList.add('btn-medio');
-
+        aulaEn.innerHTML = "Aula Encerrada";
+        
         let i, cont = 0;
         for(i in aula.inscritos){
             cont++;
@@ -58,10 +61,13 @@ function mostraAula(aula){
             <h4>${aula.hInicio} - ${aula.hFim}</h4>
             <h3>${cont} / ${aula.lotacao}</h2>
         `;
-
-        bloco.append(div);
-        div.appendChild(btnInscrever);
-
+        if(aula.date >= date.toLocaleDateString()){
+            bloco.append(div);
+            div.appendChild(btnInscrever);
+        }else if(aula.date < date.toLocaleDateString()){
+            blocoLateral.append(div);
+            div.appendChild(aulaEn);
+        }
         btnInscrever.addEventListener('click', () =>{
             inscreverAula(aula);
         })
