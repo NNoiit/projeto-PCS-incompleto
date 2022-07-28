@@ -39,34 +39,35 @@ function mostrarInscritas(aula){
         inscri = aula.inscritos;
         console.log(aula);
 
-        if(inscri[cont] == cpfGlobal.email){
-            let bloco = document.querySelector('.bloco-aula');
-            let div = document.createElement('div');
-            div.id = aula.uid;
-            div.classList.add('bloco-cont');
-        
-            //criando os botões
-            let btnCancelar= document.createElement('button');
-            btnCancelar.innerHTML = "Cancelar";
-            btnCancelar.classList.add('btn-medio');
+        for(let i in inscri){
+            if(inscri[i] == cpfGlobal.email){
+                let bloco = document.querySelector('.bloco-aula');
+                let div = document.createElement('div');
+                div.id = aula.uid;
+                div.classList.add('bloco-cont');
+            
+                //criando os botões
+                let btnCancelar= document.createElement('button');
+                btnCancelar.innerHTML = "Cancelar";
+                btnCancelar.classList.add('btn-medio');
 
-            div.innerHTML = `
-                <h1>${aula.aula}</h1>
-                <h4>${aula.date}</h4>
-                <h2>${aula.lotacao}</h2>
-                `
-            bloco.append(div);
-            div.appendChild(btnCancelar);
-        
+                div.innerHTML = `
+                    <h1>${aula.aula}</h1>
+                    <h4>${aula.date}</h4>
+                    <h2>${aula.lotacao}</h2>
+                    `
+                bloco.append(div);
+                div.appendChild(btnCancelar);
+            
 
-            div.addEventListener('click', () =>{
-                console.log("div clicada");
-            })
-            btnCancelar.addEventListener('click', () =>{
-                cancelarAula(aula);
-            });
+                div.addEventListener('click', () =>{
+                    console.log("div clicada");
+                })
+                btnCancelar.addEventListener('click', () =>{
+                    cancelarAula(aula);
+                });
+            }
         }
-        cont++;
     });
     
 }
