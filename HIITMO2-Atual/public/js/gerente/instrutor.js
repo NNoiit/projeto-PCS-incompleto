@@ -1,11 +1,11 @@
 //Pegadno os dados do tipo INSTRUTOR no firestore
 firebase.firestore().collection("user").where('tipo', '==', 'instrutor').get().then((snapshot) =>{
     const users = snapshot.docs.map((doc) => ({...doc.data(), uid: doc.id}));
-
+    laoding("carregando");
     mostraInstrutores(users);
     
 }).catch(error =>{
-        console.log("erro" , error);
+        laoding("Erro:" + error);
 })
 
 //função para criar as divs dos INSTRUTORES no firestore
@@ -48,6 +48,8 @@ function mostraInstrutores(instrutor){
                 confirmDelet(instrutor);
             });
     });
+
+    endLaoding();
 }
 
 //função para deletar o instrutor
@@ -59,7 +61,7 @@ function removerInstrutor(instrutor){
 
 //confirma o delete
 function confirmDelet(instrutor){
-    const showRemover = confirm(`Deseja excluir o ${instrutor.nome}`);
+    const showRemover = confirmar(`Deseja excluir o ${instrutor.nome} ?`);
 
     if(showRemover){
         removerInstrutor(instrutor);

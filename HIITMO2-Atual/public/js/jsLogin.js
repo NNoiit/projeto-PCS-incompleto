@@ -18,8 +18,8 @@ function login() {
     })
     .catch((error) => {
         //alertando um erro se não
-        alert("Erro");
-        console.log("falho", error.code);
+        laoding("Erro:"+ error +" ao realizar login");
+
     });
 }
 

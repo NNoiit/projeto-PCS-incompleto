@@ -7,6 +7,11 @@
     border: none;
 }
 
+body{
+    display: grid;
+    width: 100%;
+}
+
 /*config menu das paginas*/
 #barra-nav{
     padding: 2vh;
@@ -104,7 +109,7 @@ button#btn-voltar:hover{
     border-bottom: 2px solid yellow;
 }
 
-/*botão flutuante*/
+/*botão flutuante redondo*/
 button.fab{
     width: 54px;
     height: 54px;
@@ -173,3 +178,60 @@ div#container div#instrutores , div#alunos{
     width: 100%;
 }
 
+/*carregamento*/
+.laoding{
+    display: flex;
+    flex-direction: column;
+    background: rgba(0,0,0, 0.5);
+    color: aliceblue;
+    width: 100%;
+    height: 100%;
+
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+}
+
+.laoding label{
+    font-size: 24px;
+    position: absolute;
+}
+
+/*Bloco com as mensagens da aplicação*/
+.bloco-msg{
+    background: #323232;
+    color: aliceblue;
+
+    margin: 3px;
+    border-radius: 10px;
+    width: 100%;
+    height: 21%;
+    max-width: 450px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+div.laoding button{
+    font-size: 12px;
+    color: aliceblue;
+    border-bottom: none;
+    display: inline-block;
+    
+}
+div.laoding button:hover{
+    background: red;
+    color: #323232;
+    border-bottom: none;
+}
+
+div.laoding button.confirm:hover{
+    background: rgb(7, 212, 7);
+    color: #323232;
+    border-bottom: none;
+}
+div.laoding button.lab{
+    color: #323232;
+}

@@ -92,7 +92,7 @@ function pegarDadoSerie(uid){
         if(doc.exists){
             preencherSerie(doc.data(), uid);
         }else{
-            console.log("Não existe");
+            laoding("Serie que esta tentando acessar não existe");
             window.location.href = "../instrutores.html";
         }
     }).catch(error =>{

@@ -5,7 +5,7 @@ firebase.firestore().collection("user").where('tipo', '==', 'aluno').get().then(
     mostraAlunos(users);
     
 }).catch(error =>{
-        console.log("erro" , error);
+        laoding("erro: " + error);
 })
 
 //função para criar as divs dos alunos no firestore
@@ -62,7 +62,7 @@ function removerAluno(aluno){
 
 //confirma o delete
 function confirmDelet(aluno){
-    const showRemover = confirm(`Deseja excluir o ${aluno.nome}`);
+    const showRemover = confirmar(`Deseja excluir o ${aluno.nome} ?`);
 
     if(showRemover){
         removerAluno(aluno);

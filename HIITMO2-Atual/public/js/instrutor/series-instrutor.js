@@ -5,7 +5,7 @@ firebase.firestore().collection("series").get().then((snapshot) =>{
     mostraSerie(serie);
 
 }).catch(error =>{
-        console.log("erro" , error);
+    laoding("erro:" , error);
 })
 
 //pegando os valores do form de serie
@@ -45,7 +45,7 @@ function verificaSerie(series){
             cadastraSerie(dados, uid);
         }
     } else{
-        alert("Preencha todos os campos");
+        laoding("Preencha todos os campos");
     }
 }
 
@@ -116,22 +116,22 @@ function cadastraSerie(dados, uid){
             //checando sé é uma alteração ou nova serie
             if(uid == "null"){
                 firebase.firestore().collection('series').add(dados).then(() =>{
-                    console.log("nava serie cadastrada");
+                    laoding("Nova serie cadastrada");
                     window.location.reload();
                 }).catch(()=>{
-                    console.log("falha ao cadastrar nova serie");
+                    laoding("Falha ao cadastrar nova serie");
                 });
             } else {
                 firebase.firestore().collection('series').doc(uid).update(dados).then(() =>{
-                    console.log("seire atualizada");
+                    laoding("Seire atualizada");
                     window.location.reload();
                 }).catch(()=>{
-                    console.log("falha ao atualizar serie");
+                    laoding("Salha ao atualizar serie");
                 });
             }
 
         }else{
-            console.log("cpf não cadastrado");
+            laoding("cpf não cadastrado");
             return true;
         }
     })
@@ -148,11 +148,11 @@ function pegarDadoSerie(uid){
         if(doc.exists){
             preencherSerie(doc.data(), uid);
         }else{
-            console.log("Não existe");
+            laoding("Serie não existe");
             window.location.href = "../../serie-instrutor.html";
         }
     }).catch(error =>{
-            console.log("erro" , error);
+            laoding("Erro:" + error);
     }
     )
 }
@@ -189,8 +189,7 @@ function removerSerie(serie){
 
 //confirma o delete
 function confirmDelet(dado){
-    console.log(dado);
-    const showRemover = confirm(`Deseja excluir o ${dado.serie}`);
+    const showRemover = confirmar(`Deseja excluir a Serie: ${dado.serie} ?`);
 
     if(showRemover){
         removerSerie(dado);

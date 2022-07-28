@@ -20,7 +20,7 @@ function pegarInfoDB(email){
        
         preenchercampos(users[0]);
     }).catch(error =>{
-            console.log("erro" , error);
+        laoding(error);
     })
 
 }
@@ -42,9 +42,9 @@ function recuperarSenha(){
     firebase.auth().onAuthStateChanged(user =>{
         if(user){
             firebase.auth().sendPasswordResetEmail(user.email).then(() => {
-                alert("Email enviado");
+                laoding("Email enviado");
             }).catch(error => {
-                alert(erroLogin(error));
+                laoding("Erro ao enviar E-mail");
             });  
         }
     });

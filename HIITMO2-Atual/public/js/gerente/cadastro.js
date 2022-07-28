@@ -116,7 +116,7 @@ form.addEventListener('submit', (event)=>{
         if(verificaCadastro()){
             let add = false;
             firebase.auth().createUserWithEmailAndPassword(email, cpf).then(() =>{
-                alert("Usuario cadastrado com sucesso!");
+                laoding("Usuario cadastrado com sucesso!");
 
                 add = true;
                 //Resdireciona para pagina de instrutores
@@ -130,25 +130,20 @@ form.addEventListener('submit', (event)=>{
                 }
 
             }).catch(error => {
-                alert("Erro ao cadastrar usuario!" , error);
+                alert("Erro:" + error +" ao cadastrar usuario!");
             });
 
             //Cadastrando no firestore
             if(!add){
-                console.log("Cadastrando no firestore");
-                console.log(dados);
                 firebase.firestore().collection('user').add(dados).then(() =>{
-                    console.log("adicionada");
-                }).catch(()=>{
-                    console.log("falhou");
-                });
+                })
             }
 
         } else{
             firebase.firestore().collection('user').doc(pegaEmailUrl()).update(dados).then(() =>{
-                console.log("atualizada");
+                laoding("Cadastro atualizado");
             }).catch(()=>{
-                console.log("falhou");
+                console.log("Falha ao realizar atualização");
             });
         }
     }

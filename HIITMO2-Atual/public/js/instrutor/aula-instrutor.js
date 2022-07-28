@@ -57,7 +57,7 @@ function verificaDate(){
     for(let i in dataExist){
         if(dataNova == dataExist[i].data){
             if(hInicio == dataExist[i].hInicio && hFim == dataExist[i].hFim || hFim > dataExist[i].hInicio && hFim < dataExist[i].hFim || hInicio > dataExist[i].hInicio && hInicio < dataExist[i].hFim){
-                alert("Aula já cadastrada para esse horario");
+                laoding("Aula já cadastrada para esse horario");
                 document.getElementById('date').value = "";
                 document.getElementById('hInicio').value = "";
                 document.getElementById('hFim').value = "";
@@ -81,7 +81,7 @@ function verificaDateCampo(){
 
     //checando se o horario está no formato correto
     if( hInicio != "" && hFim != "" && hFim <= hInicio){
-        alert("Horário inválido");
+        laoding("Horário inválido");
         document.getElementById('hFim').value = "";
         document.getElementById('hFim').focus();
 
@@ -89,10 +89,10 @@ function verificaDateCampo(){
 
     //testando se a data esta no formato correto
     if(dataNova != "" && dataNova == dataAtual){
-        console.log("Data invalida, mesmo dia");
+        console.log("Data invalida. Aula não pode ocorrer no mesmo dia");
         document.getElementById('date').value = "";
     } else if(dataNova != "" && dataNova < dataAtual){
-        console.log("Data invalida, data passou");
+        console.log("Data invalida. A data digitada já passou");
         document.getElementById('date').value = "";
     }else if(dataNova != "" && dataNova > dataAtual){
         console.log("Data valida");
@@ -171,17 +171,17 @@ function cadastraAula(dados, uid){
     if(uid == "null"){
 
         firebase.firestore().collection('aulas').add(dados).then(() =>{
-            console.log("cadastrada");
+            laoding("Aula cadastrada ^^");
             window.location.reload();
         }).catch(()=>{
-            console.log("falhou1");
+            laoding("Cadastro de Aula falhou");
         });
     } else {
         firebase.firestore().collection('aulas').doc(uid).update(dados).then(() =>{
-            console.log("atualizada");
+            laoding("Aula atualizada ^^");
             window.location.reload();
         }).catch(()=>{
-            console.log("falhou2");
+            laoding("Atualização falhou");
         });
     }
 }
@@ -194,7 +194,7 @@ function pegarDadoAula(uid){
         if(doc.exists){
             preencherAula(doc.data(), uid);
         }else{
-            console.log("Não existe");
+            laoding("A aula que deseja acessar não existe");
             window.location.href = "../../aula-instrutores.html";
         }
     }).catch(error =>{
@@ -225,8 +225,8 @@ function removerAula(aula){
 
 //confirma o delete
 function confirmDelet(dado){
-    console.log(dado);
-    const showRemover = confirm(`Deseja excluir o ${dado.aula}`);
+   
+    const showRemover = confirmar(`Deseja excluir a Aula: ${dado.aula} ?`);
 
     if(showRemover){
         removerAula(dado);

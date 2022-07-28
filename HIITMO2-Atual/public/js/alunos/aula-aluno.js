@@ -64,7 +64,7 @@ function mostrarInscritas(aula){
                     console.log("div clicada");
                 })
                 btnCancelar.addEventListener('click', () =>{
-                    cancelarAula(aula);
+                    removerInscricao(aula);
                 });
             }
         }
@@ -73,7 +73,7 @@ function mostrarInscritas(aula){
 }
 
 function cancelarAula(aula){
-    console.log(aula);
+    
     let inscri = aula.inscritos;
     let cancelado = false;
     let numeroInscritos = aula.numeroInscritos-1;
@@ -96,11 +96,19 @@ function cancelarAula(aula){
         }
     
         firebase.firestore().collection("aulas").doc(aula.uid).update(dadosIn).then(() =>{
-            console.log("removido");
+            laoding("Inscrição em aula desfeita");
             window.location.reload();
         }).catch(()=>{
-            console.log("Falha ao remover");
+            laoding("Falha ao remover inscrição");
         });
     }
 
+}
+
+function removerInscricao(aula){
+    const resul = confirmar(`Deseja desfazer usa inscrição na aula ${aula.aula} ?`);
+
+    if(resul){
+        cancelarAula(aula);
+    }
 }
