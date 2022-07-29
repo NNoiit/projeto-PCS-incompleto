@@ -37,26 +37,33 @@ function mostraSerie(serie){
         let bloco = document.querySelector('.bloco-serie');
         let divDesc = document.createElement('div');
         let div = document.createElement('div');
+        let divBtn = document.createElement('div');
         let tableSerie = document.createElement('div');
+
+        let btnPdf = document.createElement('button');
+        btnPdf.innerHTML = "Gerar PDF";
+        btnPdf.classList.add('btn-medio');
+        let btnSeries = document.createElement('button');
+        btnSeries.innerHTML = "Ver serie";
+        btnSeries.classList.add('btn-medio');
+
         div.classList.add('bloco-desc');
         divDesc.classList.add('bloco-cont-desc');
         div.id = serie.uid;
 
-        console.log(serie);
-        console.log(serie.ficha);
-        console.log(serie.ficha.exercicio);
-        
-        div.innerHTML = `
+        div.innerHTML= `
             <h1>${serie.serie}</h1>
             <h4>${serie.cpf}</h4>
         `
-        bloco.append(div);
-        div.appendChild(divDesc);
 
+        divBtn.appendChild(btnPdf);
+        divBtn.appendChild(btnSeries);
+        bloco.append(div);
+        div.appendChild(divBtn);
         
         ///////////////Tabela///////////////
         for (let i in serie.ficha) {
-            tableSerie.innerHTML+=`
+            tableSerie.innerText+=`
 
                 <table border="3">
                 <thead>
@@ -74,12 +81,16 @@ function mostraSerie(serie){
                 </tr>
                 </table>
                 `;
-
-            bloco.append(tableSerie);
         }
+        ///////////////Tabela///////////////
 
-        ////////////
+        btnPdf.addEventListener('click', () => {
+            pegarSerie(serie);
+        })
 
+        btnSeries.addEventListener('click', () => {
+            verSerie(serie);
+        });
     });
 
 }
@@ -99,5 +110,93 @@ function pegarDadoSerie(uid){
             console.log("erro" , error);
     }
     )
+}
+
+//Função para ver a serie
+function verSerie(serie){
+    let bloco = document.querySelector('.bloco-serie');
+    ficha = serie.ficha;
+    let btnFechar = document.createElement('button');
+    btnFechar.innerHTML = "Fechar";
+    btnFechar.classList.add('fab');
+    let tbody = document.createElement('table');;
+    tbody.innerText='';
+
+    let tr = tbody.insertRow();
+
+        let td_serie = tr.insertCell();
+        let td_quantidade = tr.insertCell();
+        let td_repeticao = tr.insertCell();
+
+        td_serie.innerText = "exercicio";
+        td_quantidade.innerText = "quantidade";
+        td_repeticao.innerText = "repeticao";
+
+    for (let i in serie.ficha) {
+        
+        tr = tbody.insertRow();
+
+        td_serie = tr.insertCell();
+        td_quantidade = tr.insertCell();
+        td_repeticao = tr.insertCell();
+    
+
+        td_serie.innerText = ficha[i].exercicio;
+        td_quantidade.innerText = ficha[i].quantidade;
+        td_repeticao.innerText = ficha[i].repeticoes;
+
+    }
+    bloco.append(tbody);
+    bloco.append(btnFechar);
+
+    btnFechar.addEventListener('click', () => {
+        tbody.remove();
+        btnFechar.remove();
+    });
+
+}
+
+//gerar pdf da serie
+function pegarSerie(serie){
+    let bloco = document.querySelector('.bloco-serie');
+    ficha = serie.ficha;
+    let tbody = document.createElement('table');;
+    tbody.innerText='';
+
+    let tr = tbody.insertRow();
+
+        let td_serie = tr.insertCell();
+        let td_quantidade = tr.insertCell();
+        let td_repeticao = tr.insertCell();
+
+        td_serie.innerText = "exercicio";
+        td_quantidade.innerText = "quantidade";
+        td_repeticao.innerText = "repeticao";
+
+    for (let i in serie.ficha) {
+        
+        tr = tbody.insertRow();
+
+        td_serie = tr.insertCell();
+        td_quantidade = tr.insertCell();
+        td_repeticao = tr.insertCell();
+    
+
+        td_serie.innerText = ficha[i].exercicio;
+        td_quantidade.innerText = ficha[i].quantidade;
+        td_repeticao.innerText = ficha[i].repeticoes;
+    }
+    gerarPdf(tbody);
+}
+function gerarPdf(serie){
+    const { jsPDF } = window.jspdf;
+
+    console.log(serie);
+    console.log(serie.innerText);
+
+    let documento = serie.innerText;
+    const doc = new jsPDF();
+    doc.text(documento, 20, 20);
+    doc.save("serie.pdf");
 }
 

@@ -18,7 +18,7 @@ formAula.addEventListener('submit', (event)=>{
 
     //verificando se a data está correta e atribuindo as variaveis os valores do form
     if(verificaDate()){
-        let aula = formAula.aula.value, descAula = formAula.descricao-aula.value, date = formAula.date.value, lotacao = formAula.lotacao.value, hInicio = formAula.hInicio.value, hFim = formAula.hFim.value, uid = formAula.uid.value;
+        let aula = formAula.aula.value, descAula = document.getElementById('descAula').value, date = formAula.date.value, lotacao = formAula.lotacao.value, hInicio = formAula.hInicio.value, hFim = formAula.hFim.value, uid = formAula.uid.value;
         uid = formAula.uid.value;
 
         //ajustando o formato da data para salvar no BD
@@ -141,7 +141,6 @@ function mostraAula(aula, tipo){
         if(date.toLocaleDateString() > aula.date){
             div.style.background = "#808080";
             div.removeChild(btnAlterar);
-            div.removeChild(btnExcluir);
         }
         
 
@@ -171,15 +170,19 @@ function cadastraAula(dados, uid){
     if(uid == "null"){
 
         firebase.firestore().collection('aulas').add(dados).then(() =>{
+            document.getElementById('aula').value = "";
+            document.getElementById('date').value = "";
+            document.getElementById('hInicio').value = "";
+            document.getElementById('hFim').value = "";
+            document.getElementById('lotacao').value = "";
             laoding("Aula cadastrada ^^");
-            window.location.reload();
         }).catch(()=>{
             laoding("Cadastro de Aula falhou");
         });
     } else {
         firebase.firestore().collection('aulas').doc(uid).update(dados).then(() =>{
             laoding("Aula atualizada ^^");
-            window.location.reload();
+            
         }).catch(()=>{
             laoding("Atualização falhou");
         });
@@ -226,11 +229,50 @@ function removerAula(aula){
 //confirma o delete
 function confirmDelet(dado){
    
-    const showRemover = confirmar(`Deseja excluir a Aula: ${dado.aula} ?`);
+    confirmarAula(`Deseja excluir a Aula: ${dado.aula} ?`, dado);
 
-    if(showRemover){
+    setTimeout(() => { endLaoding(); }, 9000);
+}
+
+function confirmarAula(text, dado){
+    const div = document.createElement('div');
+    div.classList.add('laoding');
+    const divBloco = document.createElement('div');
+    const label = document.createElement('label');
+    const divButtun = document.createElement('div');
+
+    //botões para cancelar e confirmar
+    const button = document.createElement('button');
+    button.classList.add('btn-medio');
+    button.innerText = "Cancelar"
+
+    const buttonConfirm = document.createElement('button');
+    buttonConfirm.classList.add('btn-medio', 'confirm');
+    buttonConfirm.innerText = "Confirmar"
+   
+    
+    divBloco.classList.add('bloco-msg');
+    label.innerText = text;
+    
+    buttonConfirm.addEventListener('click', () =>{
+        endLaoding();
         removerAula(dado);
-    }
+    })
+
+    button.addEventListener('click', () =>{
+        endLaoding();
+        return false;
+    })
+
+    divButtun.appendChild(buttonConfirm);
+    divButtun.appendChild(button);
+    divBloco.appendChild(label);
+
+    div.appendChild(divBloco);
+    div.appendChild(divButtun);
+    
+    
+    document.body.appendChild(div);
 }
 
 //Evento do botão que leva para o formAula de adicionar no bd

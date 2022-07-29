@@ -61,10 +61,48 @@ function removerInstrutor(instrutor){
 
 //confirma o delete
 function confirmDelet(instrutor){
-    const showRemover = confirmar(`Deseja excluir o ${instrutor.nome} ?`);
+    confirmarInstrutor(`Deseja excluir o Instrutor: ${instrutor.nome} ?`,instrutor);
+    setTimeout(() => { endLaoding(); }, 9000);
+}
 
-    if(showRemover){
-        removerInstrutor(instrutor);
-    }
+function confirmarInstrutor(text, dado){
+    const div = document.createElement('div');
+    div.classList.add('laoding');
+    const divBloco = document.createElement('div');
+    const label = document.createElement('label');
+    const divButtun = document.createElement('div');
+
+    //botões para cancelar e confirmar
+    const button = document.createElement('button');
+    button.classList.add('btn-medio');
+    button.innerText = "Cancelar"
+
+    const buttonConfirm = document.createElement('button');
+    buttonConfirm.classList.add('btn-medio', 'confirm');
+    buttonConfirm.innerText = "Confirmar"
+   
+    
+    divBloco.classList.add('bloco-msg');
+    label.innerText = text;
+    
+    buttonConfirm.addEventListener('click', () =>{
+        endLaoding();
+        removerInstrutor(dado);
+    })
+
+    button.addEventListener('click', () =>{
+        endLaoding();
+        return false;
+    })
+
+    divButtun.appendChild(buttonConfirm);
+    divButtun.appendChild(button);
+    divBloco.appendChild(label);
+
+    div.appendChild(divBloco);
+    div.appendChild(divButtun);
+    
+    
+    document.body.appendChild(div);
 }
 

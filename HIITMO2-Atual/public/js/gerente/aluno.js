@@ -62,9 +62,47 @@ function removerAluno(aluno){
 
 //confirma o delete
 function confirmDelet(aluno){
-    const showRemover = confirmar(`Deseja excluir o ${aluno.nome} ?`);
+    confirmarAluno(`Deseja excluir o Aluno: ${aluno.nome} ?`, aluno);
+    setTimeout(() => { endLaoding(); }, 9000);
+}
 
-    if(showRemover){
-        removerAluno(aluno);
-    }
+function confirmarAluno(text, dado){
+    const div = document.createElement('div');
+    div.classList.add('laoding');
+    const divBloco = document.createElement('div');
+    const label = document.createElement('label');
+    const divButtun = document.createElement('div');
+
+    //botões para cancelar e confirmar
+    const button = document.createElement('button');
+    button.classList.add('btn-medio');
+    button.innerText = "Cancelar"
+
+    const buttonConfirm = document.createElement('button');
+    buttonConfirm.classList.add('btn-medio', 'confirm');
+    buttonConfirm.innerText = "Confirmar"
+   
+    
+    divBloco.classList.add('bloco-msg');
+    label.innerText = text;
+    
+    buttonConfirm.addEventListener('click', () =>{
+        endLaoding();
+        removerAluno(dado);
+    })
+
+    button.addEventListener('click', () =>{
+        endLaoding();
+        return false;
+    })
+
+    divButtun.appendChild(buttonConfirm);
+    divButtun.appendChild(button);
+    divBloco.appendChild(label);
+
+    div.appendChild(divBloco);
+    div.appendChild(divButtun);
+    
+    
+    document.body.appendChild(div);
 }

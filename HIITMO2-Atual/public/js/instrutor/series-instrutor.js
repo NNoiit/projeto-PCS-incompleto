@@ -100,7 +100,6 @@ function mostraSerie(serie, tipo){
 
             confirmDelet(fichas);
         });
-    
     });
 
 }
@@ -116,10 +115,11 @@ function cadastraSerie(dados, uid){
             //checando sé é uma alteração ou nova serie
             if(uid == "null"){
                 firebase.firestore().collection('series').add(dados).then(() =>{
-                    laoding("Nova serie cadastrada");
-                    window.location.reload();
+                    document.getElementById("div-form-serie").value = "";
+                    laoding("Nova serie cadastrada ^^");
+                    
                 }).catch(()=>{
-                    laoding("Falha ao cadastrar nova serie");
+                    laoding("Falha ao cadastrar nova serie T-T");
                 });
             } else {
                 firebase.firestore().collection('series').doc(uid).update(dados).then(() =>{
@@ -189,12 +189,50 @@ function removerSerie(serie){
 
 //confirma o delete
 function confirmDelet(dado){
-    const showRemover = confirmar(`Deseja excluir a Serie: ${dado.serie} ?`);
+    confirmarSerie(`Deseja excluir a Serie: ${dado.serie} ?`, dado);
 
-    if(showRemover){
+    setTimeout(() => { endLaoding(); }, 9000);
+}
+
+function confirmarSerie(text, dado){
+    const div = document.createElement('div');
+    div.classList.add('laoding');
+    const divBloco = document.createElement('div');
+    const label = document.createElement('label');
+    const divButtun = document.createElement('div');
+
+    //botões para cancelar e confirmar
+    const button = document.createElement('button');
+    button.classList.add('btn-medio');
+    button.innerText = "Cancelar"
+
+    const buttonConfirm = document.createElement('button');
+    buttonConfirm.classList.add('btn-medio', 'confirm');
+    buttonConfirm.innerText = "Confirmar"
+   
+    
+    divBloco.classList.add('bloco-msg');
+    label.innerText = text;
+    
+    buttonConfirm.addEventListener('click', () =>{
+        endLaoding();
         removerSerie(dado);
+    })
 
-    }
+    button.addEventListener('click', () =>{
+        endLaoding();
+        return false;
+    })
+
+    divButtun.appendChild(buttonConfirm);
+    divButtun.appendChild(button);
+    divBloco.appendChild(label);
+
+    div.appendChild(divBloco);
+    div.appendChild(divButtun);
+    
+    
+    document.body.appendChild(div);
 }
 
 //EVENTOS DO BOTOES DE SERIES/AULAS

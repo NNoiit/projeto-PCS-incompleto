@@ -55,6 +55,11 @@ function onEmail(){
 
 //verifica se o cpf já esta cadastrado
 function onCpf(){
+    const cpf = form.cpf.value;
+    if(cpf.length != 11){
+        document.getElementById("cpf-atention").innerHTML = "CPF invalido";
+        return true;
+    }
 
     firebase.firestore().collection('user').where('cpf', '==', form.cpf.value).get().then((snapshot)=>{
         const user = snapshot.docs.map((doc) => doc.data());
@@ -112,22 +117,19 @@ form.addEventListener('submit', (event)=>{
         tipo: tipo,
         senha: cpf
         };
+
+        const dado2 ={
+            nome: nome,
+            email: email,
+            cpf: cpf,
+            tipo: tipo,
+        }
         
         if(verificaCadastro()){
             let add = false;
             firebase.auth().createUserWithEmailAndPassword(email, cpf).then(() =>{
                 laoding("Usuario cadastrado com sucesso!");
-
                 add = true;
-                //Resdireciona para pagina de instrutores
-                if(tipo == 'instrutor'){
-                    window.location.href = "../instrutores.html";
-                }
-            
-                //Redireciona para pagina de Alunos
-                else if(tipo == 'aluno'){
-                    window.location.href = "../aluno.html";
-                }
 
             }).catch(error => {
                 alert("Erro:" + error +" ao cadastrar usuario!");
@@ -135,7 +137,7 @@ form.addEventListener('submit', (event)=>{
 
             //Cadastrando no firestore
             if(!add){
-                firebase.firestore().collection('user').add(dados).then(() =>{
+                firebase.firestore().collection('user').add(dado2).then(() =>{
                 })
             }
 

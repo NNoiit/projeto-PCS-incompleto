@@ -37,7 +37,8 @@ function mostrarInscritas(aula){
 
     aula.forEach(aula => {
         inscri = aula.inscritos;
-        console.log(aula);
+        let data = new Date();
+        
 
         for(let i in inscri){
             if(inscri[i] == cpfGlobal.email){
@@ -45,6 +46,8 @@ function mostrarInscritas(aula){
                 let div = document.createElement('div');
                 div.id = aula.uid;
                 div.classList.add('bloco-cont');
+
+                let datHj = data.toDateString();
             
                 //criando os botões
                 let btnCancelar= document.createElement('button');
@@ -56,8 +59,11 @@ function mostrarInscritas(aula){
                     <h4>${aula.date}</h4>
                     <h2>${aula.lotacao}</h2>
                     `
+                    console.log(datHj);
+            if(datHj >= aula.date){
                 bloco.append(div);
                 div.appendChild(btnCancelar);
+                }
             
 
                 div.addEventListener('click', () =>{
@@ -97,7 +103,6 @@ function cancelarAula(aula){
     
         firebase.firestore().collection("aulas").doc(aula.uid).update(dadosIn).then(() =>{
             laoding("Inscrição em aula desfeita");
-            window.location.reload();
         }).catch(()=>{
             laoding("Falha ao remover inscrição");
         });
@@ -106,9 +111,47 @@ function cancelarAula(aula){
 }
 
 function removerInscricao(aula){
-    const resul = confirmar(`Deseja desfazer usa inscrição na aula ${aula.aula} ?`);
+    confirmarRinscri(`Deseja desfazer usa inscrição na Aula: ${aula.aula} ?`, aula);
+    setTimeout(() => { endLaoding(); }, 9000);
+}
 
-    if(resul){
-        cancelarAula(aula);
-    }
+function confirmarRinscri(text, dado){
+    const div = document.createElement('div');
+    div.classList.add('laoding');
+    const divBloco = document.createElement('div');
+    const label = document.createElement('label');
+    const divButtun = document.createElement('div');
+
+    //botões para cancelar e confirmar
+    const button = document.createElement('button');
+    button.classList.add('btn-medio');
+    button.innerText = "Cancelar"
+
+    const buttonConfirm = document.createElement('button');
+    buttonConfirm.classList.add('btn-medio', 'confirm');
+    buttonConfirm.innerText = "Confirmar"
+   
+    
+    divBloco.classList.add('bloco-msg');
+    label.innerText = text;
+    
+    buttonConfirm.addEventListener('click', () =>{
+        endLaoding();
+        cancelarAula(dado);
+    })
+
+    button.addEventListener('click', () =>{
+        endLaoding();
+        return false;
+    })
+
+    divButtun.appendChild(buttonConfirm);
+    divButtun.appendChild(button);
+    divBloco.appendChild(label);
+
+    div.appendChild(divBloco);
+    div.appendChild(divButtun);
+    
+    
+    document.body.appendChild(div);
 }

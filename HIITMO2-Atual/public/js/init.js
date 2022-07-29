@@ -23,13 +23,10 @@ function pegarInfoDB(email){
     })
 }
 
-function verificaTipo(){
+function verificaTipo(aula){
     firebase.firestore().collection("user").where("email", "==", emailGlobal.email).get().then(snapshot =>{
         const users = snapshot.docs.map(doc => doc.data()); 
-       if(users[0].tipo == "aluno"){
-            return true;
-       }
-       return false
+        mostraAula(aula, users[0].tipo);
     })
 }
 
@@ -37,12 +34,13 @@ function verificaTipo(){
 //Motrando as aulas
 firebase.firestore().collection("aulas").get().then((snapshot) =>{
     const aula = snapshot.docs.map((doc) => ({...doc.data(), uid: doc.id}));
-    mostraAula(aula);
+    verificaTipo(aula);
 }).catch(error =>{
         console.log("erro" , error);
 })
 
-function mostraAula(aula){
+
+function mostraAula(aula, tipo){
 
     aula.forEach(aula => {
         //declarando as variaveis a serem usadas
@@ -85,9 +83,12 @@ function mostraAula(aula){
         if(aula.date >= date.toLocaleDateString()){
             bloco.append(div);
             aulaEn.innerHTML = "Aula Encerrada";
-            if(aula.lotacao > cont && verificaTipo()){
+            
+
+            if(aula.lotacao > cont && tipo == "aluno"){
                 div.appendChild(btnInscrever);
             }
+            
         } else if(aula.date < date.toLocaleDateString()){
             blocoLateral.append(div);
             div.appendChild(aulaEn);
@@ -97,6 +98,9 @@ function mostraAula(aula){
             div.appendChild(aulaEn);
         }
         
+        div.addEventListener('click', () =>{
+            laoding(aula.descAula);
+        })
         btnInscrever.addEventListener('click', () =>{
             inscreverAula(aula);
         })
@@ -116,7 +120,7 @@ function inscreverAula(aula){
         let checkCPF = false;
         for(let i = 1; i <= numeroInscritos; i++){
             if(inscricao[i] == emailGlobal){
-                laoding("Você já está inscrito nessa aula");
+                laoding("Você já está inscrito nessa aula *-*");
                 checkCPF = true;
             }
         }
@@ -135,13 +139,12 @@ function inscreverAula(aula){
             }
         //adicioando a inscritos no bd
         firebase.firestore().collection("aulas").doc(aula.uid).update(dadosIn).then(() =>{
-            laoding("Inscrito");
-            window.location.reload();
+            laoding("Inscrito na Aula ^^");
         }).catch(()=>{
-            laoding("Falha ao inscrever, tente novamente");
+            laoding("Falha ao inscrever, tente novamente T-T");
         });
         }
     } else{
-        laoding("Aula lotada");
+        laoding("Aula lotada -_-");
     }
 }

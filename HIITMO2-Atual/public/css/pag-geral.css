@@ -194,7 +194,7 @@ div#container div#instrutores , div#alunos{
 
 .laoding label{
     font-size: 24px;
-    position: absolute;
+    text-align: center;
 }
 
 /*Bloco com as mensagens da aplicação*/
